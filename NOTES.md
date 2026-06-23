@@ -52,6 +52,7 @@
 - Interpolation
 - (event)="fn()"
 - two way data bind (banana na caixa) [(ngModel)]="prop"
+- ng2-bootstrap
 
 ## Como estudar
 
