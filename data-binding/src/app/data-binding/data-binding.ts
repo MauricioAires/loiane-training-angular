@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NgClass } from '../../../node_modules/@angular/common/types/_common_module-chunk';
+import { FormsModule } from '@angular/forms';
+import { MeuFormModule } from '../meu-form/meu-form-module';
 
 @Component({
   selector: 'app-data-binding',
@@ -13,6 +14,8 @@ import { NgClass } from '../../../node_modules/@angular/common/types/_common_mod
       }
     `,
   ],
+  imports: [FormsModule, MeuFormModule],
+  standalone: true,
 })
 export class DataBinding {
   url: string = 'https://www.google.com';

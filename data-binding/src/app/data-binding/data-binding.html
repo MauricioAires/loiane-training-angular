@@ -72,11 +72,12 @@
     </article>
   }
 
-  <article>
-    <h3>Event Binding</h3>
+  @if (false) {
+    <article>
+      <h3>Event Binding</h3>
 
-    <div>
-      <!--
+      <div>
+        <!--
 
       (click)="fn()" também é um syntactic sugar é apenas um atalho
       do que o que o angular realmente faz que é um:
@@ -85,25 +86,28 @@
 
 
       -->
-      <button on-click="botaoClicado()" type="button" class="btn btn-primary">Me clique!</button>
+        <button on-click="botaoClicado()" type="button" class="btn btn-primary">Me clique!</button>
 
-      <br />
-      <br />
+        <br />
+        <br />
 
-      <input
-        type="text"
-        on-keyup="onKeyUp($event)"
-        (keyup.enter)="salvarValor(campoInput.value)"
-        (blur)="salvarValor(campoInput.value)"
-        #campoInput
-      />
+        <input
+          type="text"
+          on-keyup="onKeyUp($event)"
+          (keyup.enter)="salvarValor(campoInput.value)"
+          (blur)="salvarValor(campoInput.value)"
+          #campoInput
+        />
 
-      <p>Valor atual: {{ valorAtual }}</p>
-      <p>Valor salvo: {{ valorSalvo }}</p>
+        <p>Valor atual: {{ valorAtual }}</p>
+        <p>Valor salvo: {{ valorSalvo }}</p>
 
-      <span (mouseover)="onMouseOut()" (mouseout)="onMouseOut()" [class.highlight]="isMouseOver">
-        Passe o mouse sobre mim
-      </span>
-    </div>
-  </article>
+        <span (mouseover)="onMouseOut()" (mouseout)="onMouseOut()" [class.highlight]="isMouseOver">
+          Passe o mouse sobre mim
+        </span>
+      </div>
+    </article>
+  }
 </section>
+
+<app-meu-form></app-meu-form>

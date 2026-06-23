@@ -54,6 +54,11 @@
 - two way data bind (banana na caixa) [(ngModel)]="prop"
 - ng2-bootstrap
 
+## Two-way data binding
+
+- Valor do Template para o Componente e vice-versa
+- Usa-se binding de ventos + propriedades
+
 ## Como estudar
 
 - Definir o que estudar (roadmap.sh)
