@@ -27,43 +27,83 @@
     make code easier to read or write
     --></article>
   }
+
+  @if (false) {
+    <article>
+      <h3>Class e Style Binding</h3>
+
+      <div>
+        Selecione uma classe:
+
+        <select #classe (change)="(0)">
+          <option value="alert-success">Sucesso</option>
+          <option value="alert-info">Info</option>
+          <option value="alert-warning">Alerta</option>
+          <option value="alert-danger">Erro</option>
+        </select>
+
+        <br /><br />
+
+        <div class="alert {{ classe.value }}" role="alert">
+          Texto colorido conforme o valor do combobox.
+        </div>
+
+        <div class="alert" role="alert" [class.alert-success]="classe.value === 'alert-success'">
+          Sucesso
+        </div>
+        <div class="alert" role="alert" [class.alert-info]="classe.value === 'alert-info'">
+          Info
+        </div>
+        <div class="alert" role="alert" [class.alert-warning]="classe.value === 'alert-warning'">
+          Alerta
+        </div>
+        <div class="alert" role="alert" [class.alert-danger]="classe.value === 'alert-danger'">
+          Erro
+        </div>
+
+        <div
+          class="alert alert-danger"
+          role="alert"
+          [style.display]="classe.value === 'alert-danger' ? 'block' : 'none'"
+        >
+          Esse texto somente aparece em caso de erro.
+        </div>
+      </div>
+    </article>
+  }
+
   <article>
-    <h3>Class e Style Binding</h3>
+    <h3>Event Binding</h3>
 
     <div>
-      Selecione uma classe:
+      <!--
 
-      <select #classe (change)="(0)">
-        <option value="alert-success">Sucesso</option>
-        <option value="alert-info">Info</option>
-        <option value="alert-warning">Alerta</option>
-        <option value="alert-danger">Erro</option>
-      </select>
+      (click)="fn()" também é um syntactic sugar é apenas um atalho
+      do que o que o angular realmente faz que é um:
 
-      <br /><br />
+      on-click="fn()"
 
-      <div class="alert {{ classe.value }}" role="alert">
-        Texto colorido conforme o valor do combobox.
-      </div>
 
-      <div class="alert" role="alert" [class.alert-success]="classe.value === 'alert-success'">
-        Sucesso
-      </div>
-      <div class="alert" role="alert" [class.alert-info]="classe.value === 'alert-info'">Info</div>
-      <div class="alert" role="alert" [class.alert-warning]="classe.value === 'alert-warning'">
-        Alerta
-      </div>
-      <div class="alert" role="alert" [class.alert-danger]="classe.value === 'alert-danger'">
-        Erro
-      </div>
+      -->
+      <button on-click="botaoClicado()" type="button" class="btn btn-primary">Me clique!</button>
 
-      <div
-        class="alert alert-danger"
-        role="alert"
-        [style.display]="classe.value === 'alert-danger' ? 'block' : 'none'"
-      >
-        Esse texto somente aparece em caso de erro.
-      </div>
+      <br />
+      <br />
+
+      <input
+        type="text"
+        on-keyup="onKeyUp($event)"
+        (keyup.enter)="salvarValor(campoInput.value)"
+        (blur)="salvarValor(campoInput.value)"
+        #campoInput
+      />
+
+      <p>Valor atual: {{ valorAtual }}</p>
+      <p>Valor salvo: {{ valorSalvo }}</p>
+
+      <span (mouseover)="onMouseOut()" (mouseout)="onMouseOut()" [class.highlight]="isMouseOver">
+        Passe o mouse sobre mim
+      </span>
     </div>
   </article>
 </section>

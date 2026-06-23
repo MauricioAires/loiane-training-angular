@@ -1,10 +1,18 @@
 import { Component } from '@angular/core';
+import { NgClass } from '../../../node_modules/@angular/common/types/_common_module-chunk';
 
 @Component({
   selector: 'app-data-binding',
-  imports: [],
   templateUrl: './data-binding.html',
-  styleUrl: './data-binding.css',
+  // styleUrl: './data-binding.css',
+  styles: [
+    `
+      .highlight {
+        background-color: yellow;
+        font-weight: bold;
+      }
+    `,
+  ],
 })
 export class DataBinding {
   url: string = 'https://www.google.com';
@@ -12,11 +20,31 @@ export class DataBinding {
   urlImagem = 'https://picsum.photos/200/200';
   cursoAngular: boolean = true;
 
+  valorAtual: string = '';
+  valorSalvo: string = '';
+  isMouseOver: boolean = false;
+
   getCurtirCurso() {
     return true;
   }
 
   getValor() {
     return 1;
+  }
+
+  botaoClicado() {
+    alert('Botão clicado!');
+  }
+
+  onKeyUp(event: KeyboardEvent) {
+    this.valorAtual = (event.target as HTMLInputElement).value;
+  }
+
+  salvarValor(valor: string) {
+    this.valorSalvo = valor;
+  }
+
+  onMouseOut() {
+    this.isMouseOver = !this.isMouseOver;
   }
 }
