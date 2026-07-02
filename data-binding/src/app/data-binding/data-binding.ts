@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MeuFormModule } from '../meu-form/meu-form-module';
+import { InputProperty } from '../input-property/input-property';
 
 @Component({
   selector: 'app-data-binding',
@@ -14,7 +15,7 @@ import { MeuFormModule } from '../meu-form/meu-form-module';
       }
     `,
   ],
-  imports: [FormsModule, MeuFormModule],
+  imports: [FormsModule, MeuFormModule, InputProperty],
   standalone: true,
 })
 export class DataBinding {
@@ -26,6 +27,8 @@ export class DataBinding {
   valorAtual: string = '';
   valorSalvo: string = '';
   isMouseOver: boolean = false;
+
+  nomeDoCurso: string = 'Angular';
 
   getCurtirCurso() {
     return true;

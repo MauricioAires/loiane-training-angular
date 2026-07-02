@@ -110,4 +110,20 @@
   }
 </section>
 
-<app-meu-form></app-meu-form>
+@if (false) {
+  <app-meu-form></app-meu-form>
+}
+
+<section class="input-output-properties">
+  <article>
+    <h3>Input/Output Properties</h3>
+
+    <!--
+    Input Properties tem objetivos dos diretivas
+    Input properties tem o objetivo de organizar melhor o código, deixar mais sucinto
+    DUMB COMPONENTES: componentes que não tem lógica de negócio, apenas recebem dados e exibem
+
+    -->
+    <app-curso [nome]="nomeDoCurso"></app-curso>
+  </article>
+</section>
