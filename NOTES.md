@@ -90,3 +90,13 @@
   - A maioria leu apenas clean code (dev médio) ler mais vai me colocar a frente
   - Estudos sobre demanda (estudar o que eu preciso nessa task)
   - FOMO
+
+## Life Cycle Hooks
+
+- ngOnChanges: antes #2 e quando o valor property-binding é atualizado
+- ngOnInit: quando Component é iniciado
+- ngDoCheck: a cada ciclo de verificação de mudanças
+- ngAfterContentInit: depois de inserir conteúdo externo na view
+- ngAfterContextChecked: a cada verificação de conteúdo inserido
+- ngAfterViewChecked: a cada verificação de conteúdo / conteúdo filho
+- ngOnDestroy: antes da diretiva/component ser destruído
