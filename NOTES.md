@@ -100,3 +100,18 @@
 - ngAfterContextChecked: a cada verificação de conteúdo inserido
 - ngAfterViewChecked: a cada verificação de conteúdo / conteúdo filho
 - ngOnDestroy: antes da diretiva/component ser destruído
+
+## Comandos
+
+- Para criar um novo projeto npx ng new project-name.
+- O comando ng init não exite mais na CLI do angular.
+- Comandos existentes no angular CLI
+  - component
+  - service
+  - directive
+  - pipe
+  - class
+  - interface
+  - enum
+- Estudar mais sobre BDD and TDD
+- Estudar mais sobre playwright
