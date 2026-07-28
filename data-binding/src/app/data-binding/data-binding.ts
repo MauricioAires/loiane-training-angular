@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MeuFormModule } from '../meu-form/meu-form-module';
 import { InputProperty } from '../input-property/input-property';
+import { OutputProperty } from '../output-property/output-property';
 
 @Component({
   selector: 'app-data-binding',
@@ -15,7 +16,7 @@ import { InputProperty } from '../input-property/input-property';
       }
     `,
   ],
-  imports: [FormsModule, MeuFormModule, InputProperty],
+  imports: [FormsModule, MeuFormModule, InputProperty, OutputProperty],
   standalone: true,
 })
 export class DataBinding {
@@ -23,6 +24,8 @@ export class DataBinding {
 
   urlImagem = 'https://picsum.photos/200/200';
   cursoAngular: boolean = true;
+
+  valorInicial = 15;
 
   valorAtual: string = '';
   valorSalvo: string = '';
@@ -52,5 +55,9 @@ export class DataBinding {
 
   onMouseOut() {
     this.isMouseOver = !this.isMouseOver;
+  }
+
+  onMudouValor(evento: any): void {
+    console.log(evento.novoValor);
   }
 }

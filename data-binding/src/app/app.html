@@ -1,4 +1,4 @@
-@if (false) {
+@if (true) {
   <app-data-binding></app-data-binding>
 }
 
@@ -6,5 +6,7 @@
   <app-ciclo [valorInicial]="valor" />
 }
 
-<button type="button" (click)="mudarValor()">Mudar valor</button>
-<button type="button" (click)="destruirCiclo()">Deletar</button>
+@if (false) {
+  <button type="button" (click)="mudarValor()">Mudar valor</button>
+  <button type="button" (click)="destruirCiclo()">Deletar</button>
+}
