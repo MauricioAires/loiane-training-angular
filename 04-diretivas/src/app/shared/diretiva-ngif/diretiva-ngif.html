@@ -1,0 +1,26 @@
+<h5>Diretiva NgIf</h5>
+
+@if (cursos.length > 0) {
+  <div>Lista de cursos aqui.</div>
+}
+
+@if (cursos.length == 0) {
+  <div>Não existem cursos para serem listados</div>
+}
+@if (mostrarCursos) {
+  <div>Lista de cursos aqui.</div>
+}
+
+@if (!mostrarCursos) {
+  <div>Não existem cursos para serem listados</div>
+}
+
+<br />
+
+<button type="button" (click)="onMostrarCursos()">Mostrar/Esconder curos</button>
+
+<h5>Hidden como alternativa</h5>
+
+<div [hidden]="mostrarCursos">Lista de cursos aqui.</div>
+
+<div [hidden]="!mostrarCursos">Não existem cursos para serem listados</div>

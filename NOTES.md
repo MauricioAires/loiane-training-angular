@@ -115,3 +115,12 @@
   - enum
 - Estudar mais sobre BDD and TDD
 - Estudar mais sobre playwright
+- Os componente também são diretivas, o que o componente faz diz: instancie/renderize esse componente
+
+Exite basicamente dois tipos de diretivas.
+
+DIRETIVAS ESTRUTURAIS
+Que altera com a view e modifica a estrutura DOM e/ou código HTML (eg. ngFor, ngIf)
+
+DIRETIVAS DE ATRIBUTOS
+Não modifica a estrutura da DOM mas ela interage com elemento em que foram aplicadas (eg. ngClass, ngStyle)

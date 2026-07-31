@@ -6,4 +6,11 @@ import { Component } from '@angular/core';
   templateUrl: './diretiva-ngif.html',
   styleUrl: './diretiva-ngif.css',
 })
-export class DiretivaNgif {}
+export class DiretivaNgif {
+  cursos: string[] = [];
+  mostrarCursos: boolean = false;
+
+  onMostrarCursos(): void {
+    this.mostrarCursos = !this.mostrarCursos;
+  }
+}
