@@ -1,9 +1,10 @@
 import { Component, signal } from '@angular/core';
 import { DiretivaNgif } from './shared/diretiva-ngif/diretiva-ngif';
+import { DiretivaNgswitch } from './shared/diretiva-ngswitch/diretiva-ngswitch';
 
 @Component({
   selector: 'app-root',
-  imports: [DiretivaNgif],
+  imports: [DiretivaNgif, DiretivaNgswitch],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
