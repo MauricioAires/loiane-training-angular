@@ -24,3 +24,16 @@
 <div [hidden]="mostrarCursos">Lista de cursos aqui.</div>
 
 <div [hidden]="!mostrarCursos">Não existem cursos para serem listados</div>
+
+<hr />
+
+@if (mostrarCursos) {
+  <div>Lista de cursos aqui.</div>
+}
+
+<!-- <template [ngIf]="cursos.length > 0"> -->
+<template>
+  <div>Lista de cursos aqui.</div>
+</template>
+
+<!-- <div template="ngIf mostrarCursos">Lista de cursos aqui.</div> -->

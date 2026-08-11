@@ -1,0 +1,13 @@
+<h5>Diretiva for</h5>
+
+<ul>
+  @for (curso of cursos; track curso; let index = $index) {
+    <li>{{ index + 1 }} - {{ curso }}</li>
+  }
+</ul>
+
+<h5>Removendo o * e usando template.</h5>
+
+<ng-template ngFor let-item [ngForOf]="cursos" let-i="index">
+  <li>{{ i + 1 }} - {{ item }}</li>
+</ng-template>
