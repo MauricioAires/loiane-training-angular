@@ -1,0 +1,11 @@
+<p>Descrição: {{ tarefa.desc }}</p>
+
+<!--
+
+Elvis Operator (?.) - It is used to prevent errors when trying to access properties
+of an object that may be null or undefined. In this case,
+if the "responsavel" property is null, it will not throw
+an error and will simply return undefined instead of trying
+to access the "nome" property.
+-->
+<p>Responsável: {{ tarefa.responsavel?.usuario?.nome }}</p>

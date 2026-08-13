@@ -5,10 +5,18 @@ import { DiretivaNgswitch } from './shared/diretiva-ngswitch/diretiva-ngswitch';
 import { DiretivaNgfor } from './shared/diretiva-ngfor/diretiva-ngfor';
 import { DiretivaNgclass } from './shared/diretiva-ngclass/diretiva-ngclass';
 import { DiretivaNgstyle } from './shared/diretiva-ngstyle/diretiva-ngstyle';
+import { OperadorElvis } from './shared/operador-elvis/operador-elvis';
 
 @Component({
   selector: 'app-root',
-  imports: [DiretivaNgif, DiretivaNgswitch, DiretivaNgfor, DiretivaNgclass, DiretivaNgstyle],
+  imports: [
+    DiretivaNgif,
+    DiretivaNgswitch,
+    DiretivaNgfor,
+    DiretivaNgclass,
+    DiretivaNgstyle,
+    OperadorElvis,
+  ],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
