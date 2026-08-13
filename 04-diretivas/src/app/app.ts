@@ -4,10 +4,11 @@ import { DiretivaNgif } from './shared/diretiva-ngif/diretiva-ngif';
 import { DiretivaNgswitch } from './shared/diretiva-ngswitch/diretiva-ngswitch';
 import { DiretivaNgfor } from './shared/diretiva-ngfor/diretiva-ngfor';
 import { DiretivaNgclass } from './shared/diretiva-ngclass/diretiva-ngclass';
+import { DiretivaNgstyle } from './shared/diretiva-ngstyle/diretiva-ngstyle';
 
 @Component({
   selector: 'app-root',
-  imports: [DiretivaNgif, DiretivaNgswitch, DiretivaNgfor, DiretivaNgclass],
+  imports: [DiretivaNgif, DiretivaNgswitch, DiretivaNgfor, DiretivaNgclass, DiretivaNgstyle],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
