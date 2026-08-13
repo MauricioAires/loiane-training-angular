@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FundoAmarelo } from '../fundo-amarelo/fundo-amarelo';
+import { FundoAmarelo } from '../../directives/fundo-amarelo/fundo-amarelo';
 
 @Component({
   selector: 'app-diretivas-customizadas',
