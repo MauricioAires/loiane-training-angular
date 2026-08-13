@@ -1,0 +1,19 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <ng-content select=".titulo" />
+  </div>
+  <div class="panel-body">
+    <ng-content select=".corpo" />
+  </div>
+</div>
+
+<!-- /
+Input property != ng-content (no angular 1
+era conhecido como transclusion).
+
+Legal, se o componente tiver mais de um
+ng-content o código vai apenas para um.
+
+mas se tiver um select ele faz um concatenação
+e exibe mais de um conteúdo.
+-->

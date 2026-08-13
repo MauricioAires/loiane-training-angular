@@ -6,6 +6,7 @@ import { DiretivaNgfor } from './shared/diretiva-ngfor/diretiva-ngfor';
 import { DiretivaNgclass } from './shared/diretiva-ngclass/diretiva-ngclass';
 import { DiretivaNgstyle } from './shared/diretiva-ngstyle/diretiva-ngstyle';
 import { OperadorElvis } from './shared/operador-elvis/operador-elvis';
+import { ExemploNgContent } from './shared/exemplo-ng-content/exemplo-ng-content';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,7 @@ import { OperadorElvis } from './shared/operador-elvis/operador-elvis';
     DiretivaNgclass,
     DiretivaNgstyle,
     OperadorElvis,
+    ExemploNgContent,
   ],
   templateUrl: './app.html',
   styleUrl: './app.css',
