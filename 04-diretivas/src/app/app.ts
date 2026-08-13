@@ -7,6 +7,7 @@ import { DiretivaNgclass } from './shared/diretiva-ngclass/diretiva-ngclass';
 import { DiretivaNgstyle } from './shared/diretiva-ngstyle/diretiva-ngstyle';
 import { OperadorElvis } from './shared/operador-elvis/operador-elvis';
 import { ExemploNgContent } from './shared/exemplo-ng-content/exemplo-ng-content';
+import { DiretivasCustomizadas } from './shared/diretivas-customizadas/diretivas-customizadas';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ import { ExemploNgContent } from './shared/exemplo-ng-content/exemplo-ng-content
     DiretivaNgstyle,
     OperadorElvis,
     ExemploNgContent,
+    DiretivasCustomizadas,
   ],
   templateUrl: './app.html',
   styleUrl: './app.css',
