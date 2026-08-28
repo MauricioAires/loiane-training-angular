@@ -9,3 +9,20 @@
   Texto com highlight com cores customizadas.
 </p>
 <p highlight="red" defaultColor="grey">Texto com highlight com cores customizadas.</p>
+
+<br />
+<h2>Diretivas de estrutura customizada - ngElse</h2>
+
+@if (mostrarCursos) {
+  <p>Lista de cursos aqui.</p>
+}
+
+<p *ngElse="mostrarCursos">Não existem cursos para sem listados.</p>
+
+<h3>Utilizando o template</h3>
+
+<!-- <template [ngElse]="mostrarCursos">
+  <p>Não existem cursos para sem listados.</p>
+</template> -->
+
+<button type="button" (click)="onMostrarCursos()">Mostrar/Esconder curos</button>
