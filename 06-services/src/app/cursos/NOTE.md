@@ -14,3 +14,7 @@ Essas são as 3 formas de instanciar uma classe.
 1. Constructors
 2. Métodos setters
 3. Atributos
+
+Escopo de serviços e módulos
+
+Singleton x várias instâncias.

@@ -8,11 +8,11 @@ import { CursosService } from './cursos.service';
  * Services são declarados dentro de providers.
  */
 @Component({
-  imports: [NgFor],
-  providers: [CursosService],
+  // providers: [CursosService],
   selector: 'app-cursos',
   styleUrl: './cursos.scss',
   templateUrl: './cursos.html',
+  standalone: false,
 })
 export class Cursos implements OnInit {
   // cursosService: CursosService;
