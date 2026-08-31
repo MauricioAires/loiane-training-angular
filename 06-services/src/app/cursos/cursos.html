@@ -1,7 +1,9 @@
 <h5>Lista de cursos</h5>
 
 <ul>
-  <li *ngFor="let curso of cursos">
-    {{ curso }}
-  </li>
+  @for (curso of cursos; track $index) {
+    <li>
+      {{ curso }}
+    </li>
+  }
 </ul>

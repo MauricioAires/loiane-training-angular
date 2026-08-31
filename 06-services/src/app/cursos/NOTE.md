@@ -18,3 +18,5 @@ Essas são as 3 formas de instanciar uma classe.
 Escopo de serviços e módulos
 
 Singleton x várias instâncias.
+
+Comunicação entre componentes usando serviços (broadcast de eventos)

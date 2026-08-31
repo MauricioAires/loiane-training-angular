@@ -7,7 +7,7 @@ import { CursosService } from '../cursos/cursos.service';
   styleUrl: './criar-curso.scss',
   templateUrl: './criar-curso.html',
   standalone: false,
-  // providers: [CursosService],
+  providers: [CursosService],
 })
 export class CriarCurso implements OnInit {
   cursos: string[] = [];
