@@ -1,9 +1,17 @@
-import { CurrencyPipe, DatePipe, JsonPipe, LowerCasePipe, UpperCasePipe } from '@angular/common';
+import {
+  AsyncPipe,
+  CurrencyPipe,
+  DatePipe,
+  JsonPipe,
+  LowerCasePipe,
+  UpperCasePipe,
+} from '@angular/common';
 import { Component } from '@angular/core';
 import { CamelCasePipe } from '../pipes/camel-case/camel-case-pipe';
 import { FiltroArrayPipe } from '../pipes/filtro-array/filtro-array-pipe';
 import { FormsModule } from '@angular/forms';
 import { FiltroArrayImpuroPipe } from '../pipes/filtro-array-impuro/filtro-array-impuro-pipe';
+import { interval, map, Observable } from 'rxjs';
 
 @Component({
   imports: [
@@ -16,6 +24,7 @@ import { FiltroArrayImpuroPipe } from '../pipes/filtro-array-impuro/filtro-array
     FiltroArrayPipe,
     FormsModule,
     FiltroArrayImpuroPipe,
+    AsyncPipe,
   ],
   selector: 'app-exemplos-pipes',
   styleUrl: './exemplos-pipes.scss',
@@ -52,6 +61,14 @@ export class ExemplosPipes {
       return false;
     });
   }
+
+  valorAsync = new Promise((resolve) => {
+    setTimeout(() => {
+      resolve('Valor assíncrono');
+    }, 1000 * 3); // 2 seconds
+  });
+
+  valorAsync2 = interval(1000 * 3).pipe(map(() => 'Valor assíncrono2'));
 }
 
 /**
