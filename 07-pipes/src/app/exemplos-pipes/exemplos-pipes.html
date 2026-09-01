@@ -31,3 +31,12 @@
     <li>{{ liv }}</li>
   }
 </ul>
+
+<!-- O FILTRO DEVE FICAR NA CLASSE DO COMPONENTE -->
+<h3>Maneira correta de usar filtro nos projetos</h3>
+
+<ul>
+  @for (liv of obterCurso(); track $index) {
+    <li>{{ liv }}</li>
+  }
+</ul>

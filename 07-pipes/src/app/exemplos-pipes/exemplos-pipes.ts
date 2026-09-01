@@ -38,6 +38,20 @@ export class ExemplosPipes {
   protected addCurso(novoLivro: any): void {
     this.livros.push(novoLivro);
   }
+
+  protected obterCurso() {
+    if (this.livros.length === 0 || this.filtro === undefined || this.filtro.trim() === '') {
+      return this.livros;
+    }
+
+    return this.livros.filter((v) => {
+      if (v.toLocaleLowerCase().indexOf(this.filtro.toLocaleLowerCase()) >= 0) {
+        return true;
+      }
+
+      return false;
+    });
+  }
 }
 
 /**
