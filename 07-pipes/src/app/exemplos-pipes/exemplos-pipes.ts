@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { CamelCasePipe } from '../pipes/camel-case/camel-case-pipe';
 import { FiltroArrayPipe } from '../pipes/filtro-array/filtro-array-pipe';
 import { FormsModule } from '@angular/forms';
+import { FiltroArrayImpuroPipe } from '../pipes/filtro-array-impuro/filtro-array-impuro-pipe';
 
 @Component({
   imports: [
@@ -14,6 +15,7 @@ import { FormsModule } from '@angular/forms';
     CamelCasePipe,
     FiltroArrayPipe,
     FormsModule,
+    FiltroArrayImpuroPipe,
   ],
   selector: 'app-exemplos-pipes',
   styleUrl: './exemplos-pipes.scss',

@@ -17,8 +17,17 @@
 <input type="text" #novoValor />
 <button type="submit" (click)="addCurso(novoValor.value)">Add curso</button>
 
+<h3>Pipe Puro</h3>
+
 <ul>
   @for (liv of livros | filtroArray: filtro; track $index) {
+    <li>{{ liv }}</li>
+  }
+</ul>
+<h3>Pipe Impuro</h3>
+
+<ul>
+  @for (liv of livros | filtroArrayImpuro: filtro; track $index) {
     <li>{{ liv }}</li>
   }
 </ul>
