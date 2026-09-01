@@ -1,4 +1,4 @@
-<p>Título: {{ livro.titulo | uppercase | lowercase }}</p>
+<p>Título: {{ livro.titulo | uppercase | lowercase | camelCase }}</p>
 <p>Estrelas: {{ livro.rating }}</p>
 <p>Páginas: {{ livro.numeroPaginas }}</p>
 <p>Preço: {{ livro.preco | currency: 'BRL' }}</p>
