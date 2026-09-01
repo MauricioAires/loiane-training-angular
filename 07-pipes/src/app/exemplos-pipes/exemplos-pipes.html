@@ -7,3 +7,18 @@
 <hr />
 
 <p>Livro: {{ livro | json }}</p>
+
+<hr />
+
+<input type="text" [(ngModel)]="filtro" />
+
+<hr />
+
+<input type="text" #novoValor />
+<button type="submit" (click)="addCurso(novoValor.value)">Add curso</button>
+
+<ul>
+  @for (liv of livros | filtroArray: filtro; track $index) {
+    <li>{{ liv }}</li>
+  }
+</ul>
