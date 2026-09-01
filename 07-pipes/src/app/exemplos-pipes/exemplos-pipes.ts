@@ -1,6 +1,6 @@
 import { CurrencyPipe, DatePipe, JsonPipe, LowerCasePipe, UpperCasePipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { CamelCasePipe } from '../camel-case/camel-case-pipe';
+import { CamelCasePipe } from '../pipes/camel-case/camel-case-pipe';
 
 @Component({
   imports: [UpperCasePipe, CurrencyPipe, DatePipe, JsonPipe, LowerCasePipe, CamelCasePipe],
