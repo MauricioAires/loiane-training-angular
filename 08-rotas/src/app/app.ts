@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterLinkActive, RouterOutlet, RouterLinkWithHref } from '@angular/router';
 
 @Component({
@@ -7,4 +7,6 @@ import { RouterLinkActive, RouterOutlet, RouterLinkWithHref } from '@angular/rou
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
-export class App {}
+export class App {
+  protected courseId = signal('');
+}

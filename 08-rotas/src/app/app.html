@@ -14,6 +14,12 @@
       <a routerLink="/courses" routerLinkActive="text-blue-300" class="text-sm/6 font-semibold"
         >Courses</a
       >
+      <a
+        [routerLink]="['course', courseId()]"
+        routerLinkActive="text-blue-300"
+        class="text-sm/6 font-semibold"
+        >Course with ID</a
+      >
       <a routerLinkActive="text-blue-300" routerLink="/login" class="text-sm/6 font-semibold"
         >Login</a
       >
@@ -22,5 +28,21 @@
 </header>
 
 <div class="px-2">
+  <p>Entre com o id do curso</p>
+  <input
+    placeholder="ID do curso"
+    class="bg-gray-400 w-full px-2 h-8 border-1 rounded-sm"
+    type="text"
+    (input)="courseId.set($event.target.value)"
+  />
+  <!--
+  As várias locais mudaram com a implementação do zoneless
+
+  a partir do angular v21 antes o angular escurava eventos
+  como input e outras coisas agora ele só atualiza com
+
+  signal/markForCheck
+
+  -->
   <router-outlet />
 </div>
