@@ -11,7 +11,11 @@
     </div>
 
     <div class="flex flex-row gap-10 text-white">
-      <a routerLink="/courses" routerLinkActive="text-blue-300" class="text-sm/6 font-semibold"
+      <a
+        routerLink="/courses"
+        [queryParams]="{ pagina: 1 }"
+        routerLinkActive="text-blue-300"
+        class="text-sm/6 font-semibold"
         >Courses</a
       >
       <a

@@ -1,4 +1,6 @@
 <h2 class="mb-2 text-lg font-medium text-heading">Lista de curso</h2>
+
+<p>Página: {{ page() }}</p>
 <ul class="max-w-md space-y-1 text-body list-disc list-inside">
   @for (course of courses(); track $index) {
     <li>
@@ -8,3 +10,11 @@
     </li>
   }
 </ul>
+
+<button
+  type="button"
+  class="cursor-pointer bg-blue-600 p-2 rounded-sm text-white mt-4"
+  (click)="nextPage()"
+>
+  Next page
+</button>
