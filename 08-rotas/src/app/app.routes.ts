@@ -15,10 +15,11 @@ export const routes: Routes = [
   },
   {
     path: 'course/:courseId',
-    loadComponent: () => import('./course-details/course-details').then((c) => c.CourseDetails),
+    loadComponent: () =>
+      import('./courses/course-details/course-details').then((c) => c.CourseDetails),
   },
   {
     path: 'not-found',
-    loadComponent: () => import('./not-found/not-found').then((c) => c.NotFound),
+    loadComponent: () => import('./courses/not-found/not-found').then((c) => c.NotFound),
   },
 ];
