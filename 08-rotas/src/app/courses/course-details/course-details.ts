@@ -38,7 +38,7 @@ export class CourseDetails implements OnInit, OnDestroy {
           /**
            * Roteamento imperativo
            */
-          this.router.navigate(['not-found']);
+          this.router.navigate(['courses', 'not-found']);
         }
       });
   }

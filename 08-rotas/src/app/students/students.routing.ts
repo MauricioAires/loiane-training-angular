@@ -12,7 +12,7 @@ import type { Routes } from '@angular/router';
  */
 export const studentsRoutes: Routes = [
   {
-    path: 'students',
+    path: '',
     loadComponent: () => import('./students').then((c) => c.Students),
     children: [
       {

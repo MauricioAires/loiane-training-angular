@@ -4,7 +4,7 @@
 <ul class="max-w-md space-y-1 text-body list-disc list-inside">
   @for (course of courses(); track $index) {
     <li>
-      <a [routerLink]="['/', 'course', course.id]" class="hover:underline">
+      <a [routerLink]="[course.id]" class="hover:underline">
         {{ course.name }}
       </a>
     </li>

@@ -1,8 +1,5 @@
 import type { Routes } from '@angular/router';
 
-import { coursesRoutes } from './courses/courses.routing';
-import { studentsRoutes } from './students/students.routing';
-
 export const routes: Routes = [
   {
     path: '',
@@ -13,6 +10,12 @@ export const routes: Routes = [
     loadComponent: () => import('./login/login').then((c) => c.Login),
   },
 
-  ...coursesRoutes,
-  ...studentsRoutes,
+  {
+    path: 'courses',
+    loadChildren: () => import('./courses/courses.routing').then((m) => m.coursesRoutes),
+  },
+  {
+    path: 'students',
+    loadChildren: () => import('./students/students.routing').then((m) => m.studentsRoutes),
+  },
 ];
