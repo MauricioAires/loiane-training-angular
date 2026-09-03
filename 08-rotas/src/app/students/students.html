@@ -1,3 +1,18 @@
-<p>students works!</p>
+<p class="mb-4 font-bold text-2xl">Alunos</p>
 
-<router-outlet />
+<div class="flex flex-row gap-2">
+  <div class="w-1/2">
+    <ul class="w-full space-y-1 text-body list-disc list-inside">
+      @for (student of students(); track $index) {
+        <li class="p-2 bg-gray-200 w-full">
+          <a [routerLink]="[student.id]" class="hover:underline">
+            {{ student.name }}
+          </a>
+        </li>
+      }
+    </ul>
+  </div>
+  <div class="w-1/2 p-2">
+    <router-outlet />
+  </div>
+</div>

@@ -1,1 +1,14 @@
-<p>student-detail works!</p>
+<div class="flex flex-col items-start justify-start gap-4">
+  <p class="font-bold text-blue-900">Detalhes do aluno</p>
+
+  <p>Id: {{ student()?.id }}</p>
+  <p>Name: {{ student()?.name }}</p>
+  <p>E-mail: {{ student()?.email }}</p>
+
+  <button
+    class="flex cursor-pointer text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+    (click)="updateStudent()"
+  >
+    Editar
+  </button>
+</div>

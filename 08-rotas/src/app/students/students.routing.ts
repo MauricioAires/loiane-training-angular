@@ -20,11 +20,11 @@ export const studentsRoutes: Routes = [
         loadComponent: () => import('./student-form/student-form').then((c) => c.StudentForm),
       },
       {
-        path: ':id',
+        path: ':studentId',
         loadComponent: () => import('./student-detail/student-detail').then((c) => c.StudentDetail),
       },
       {
-        path: ':id/edit',
+        path: ':studentId/edit',
         loadComponent: () => import('./student-form/student-form').then((c) => c.StudentForm),
       },
     ],
