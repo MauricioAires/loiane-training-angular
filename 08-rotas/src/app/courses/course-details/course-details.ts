@@ -1,6 +1,6 @@
 import { Component, DestroyRef, OnDestroy, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription, takeUntil } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CoursesService } from '../../shared/services/courses/courses';
 @Component({
