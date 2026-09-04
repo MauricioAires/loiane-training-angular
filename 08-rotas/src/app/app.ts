@@ -1,24 +1,27 @@
-import { Component, DestroyRef, OnInit, signal } from '@angular/core';
-import { RouterLinkActive, RouterOutlet, RouterLinkWithHref } from '@angular/router';
-import { CoursesService } from './shared/services/courses/courses';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { RouterLinkActive, RouterLinkWithHref, RouterOutlet } from '@angular/router';
 import { AuthService } from './shared/services/auth/auth';
+import { CoursesService } from './shared/services/courses/courses';
 
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, RouterLinkActive, RouterLinkWithHref],
-  providers: [CoursesService, AuthService],
+  providers: [CoursesService],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
-export class App implements OnInit {
+export class App {
   protected showMenu = signal(false);
   protected courseId = signal('');
 
-  constructor(private authService: AuthService) {}
+  private destroyRef = inject(DestroyRef);
 
-  ngOnInit(): void {
-    this.authService.showMenuEmitter.subscribe((state) => {
-      this.showMenu.set(state);
-    });
+  constructor(private authService: AuthService) {
+    this.authService.showMenuEmitter
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((state) => {
+        this.showMenu.set(state);
+      });
   }
 }

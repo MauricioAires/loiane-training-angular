@@ -24,4 +24,8 @@ export class AuthService {
     this.showMenuEmitter.emit(false);
     this.isUserAuthenticated.set(false);
   }
+
+  isAuthenticated(): boolean {
+    return this.isUserAuthenticated();
+  }
 }
