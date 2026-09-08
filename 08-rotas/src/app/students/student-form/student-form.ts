@@ -3,6 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { IStudent, StudentsService } from '../../shared/services/students/students';
 import { FormsModule } from '@angular/forms';
+import { IFormCanDeactivate } from '../../shared/guards/students-deactivate/students-deactivate.interface';
 
 @Component({
   imports: [FormsModule],
@@ -10,7 +11,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './student-form.scss',
   templateUrl: './student-form.html',
 })
-export class StudentForm implements OnInit {
+export class StudentForm implements OnInit, IFormCanDeactivate {
   protected readonly student = signal<IStudent>({
     id: 0,
     email: '',
@@ -43,11 +44,17 @@ export class StudentForm implements OnInit {
     this.#formUpdated.set(true);
   }
 
-  public canGoOutside(): boolean {
+  protected canGoOutside(): boolean {
     if (this.#formUpdated()) {
-      window.confirm('Tem certeza que deseja sair dessa página?');
+      const result = window.confirm('Tem certeza que deseja sair dessa página?');
+
+      return result;
     }
 
     return true;
+  }
+
+  public canDeactivate(): boolean {
+    return this.canGoOutside();
   }
 }

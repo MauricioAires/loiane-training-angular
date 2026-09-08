@@ -1,5 +1,6 @@
 import type { ActivatedRouteSnapshot, CanDeactivateFn, RouterStateSnapshot } from '@angular/router';
-import type { StudentForm } from '../../../students/student-form/student-form';
+import type { Observable } from 'rxjs';
+import type { IFormCanDeactivate } from './students-deactivate.interface';
 
 /**
  * Esse é um formato mais especializado, esse tipo
@@ -7,12 +8,12 @@ import type { StudentForm } from '../../../students/student-form/student-form';
  * mais genérica para que possa ser utilizado em todos
  * os componentes.
  */
-export const studentsDeactivateGuard: CanDeactivateFn<StudentForm> = (
-  component: StudentForm,
-  route: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot,
-) => {
-  return component.canGoOutside() ? component.canGoOutside() : true;
+export const studentsDeactivateGuard: CanDeactivateFn<IFormCanDeactivate> = (
+  component: IFormCanDeactivate,
+  _route: ActivatedRouteSnapshot,
+  _state: RouterStateSnapshot,
+): Observable<boolean> | Promise<boolean> | boolean => {
+  return component.canDeactivate() ? component.canDeactivate() : true;
 };
 
 /**
@@ -20,4 +21,7 @@ export const studentsDeactivateGuard: CanDeactivateFn<StudentForm> = (
  * se o usuário pode sair dá página bastante utilizando
  * em telas de cadastro ou de edição, mas com base na minha experiencia
  * pode ser útil em telas de processamento de arquivos.
+ *
+ * @interfaces é um conceito da orientação a objetos e não tem no
+ * JavaScript e nem na ECMAScript apenas no TypeScript.
  */
