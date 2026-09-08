@@ -1,14 +1,14 @@
 import { ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot } from '@angular/router';
-import { of, timeout } from 'rxjs';
+import { of } from 'rxjs';
 
 export const studentsGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
 ) => {
-  console.log(route);
+  // console.log(route);
 
   if (state.url.includes('edit')) {
-    return of(false);
+    return of(true);
   }
 
   return true;

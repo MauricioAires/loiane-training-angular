@@ -1,4 +1,5 @@
 import type { Routes } from '@angular/router';
+import { studentsDeactivateGuard } from '../shared/guards/students-deactivate/students-deactivate-guard';
 
 /**
  * Rotas sem parâmetro vem primeiro.
@@ -17,6 +18,7 @@ export const studentsRoutes: Routes = [
     children: [
       {
         path: 'new',
+        canDeactivate: [studentsDeactivateGuard],
         loadComponent: () => import('./student-form/student-form').then((c) => c.StudentForm),
       },
       {
@@ -24,6 +26,7 @@ export const studentsRoutes: Routes = [
         loadComponent: () => import('./student-detail/student-detail').then((c) => c.StudentDetail),
       },
       {
+        canDeactivate: [studentsDeactivateGuard],
         path: ':studentId/edit',
         loadComponent: () => import('./student-form/student-form').then((c) => c.StudentForm),
       },

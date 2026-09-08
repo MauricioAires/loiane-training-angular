@@ -17,6 +17,8 @@ export class StudentForm implements OnInit {
     name: '',
   });
 
+  readonly #formUpdated = signal(false);
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private destroyRef: DestroyRef,
@@ -35,5 +37,17 @@ export class StudentForm implements OnInit {
 
       this.student.set(res);
     });
+  }
+
+  protected onInput(): void {
+    this.#formUpdated.set(true);
+  }
+
+  public canGoOutside(): boolean {
+    if (this.#formUpdated()) {
+      window.confirm('Tem certeza que deseja sair dessa página?');
+    }
+
+    return true;
   }
 }
