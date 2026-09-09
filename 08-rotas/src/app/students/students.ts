@@ -1,6 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { RouterLink, RouterLinkWithHref, RouterOutlet } from '@angular/router';
-import { IStudent, StudentsService } from '../shared/services/students/students';
+import { RouterLinkWithHref, RouterOutlet } from '@angular/router';
+import { StudentsService } from '../shared/services/students/students';
+import type { IStudent } from '../shared/interfaces/student';
 
 @Component({
   imports: [RouterOutlet, RouterLinkWithHref],

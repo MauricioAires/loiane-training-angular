@@ -26,7 +26,6 @@ export const routes: Routes = [
     loadChildren: () => import('./students/students.routing').then((m) => m.studentsRoutes),
 
     canActivate: [authGuard],
-    canActivateChild: [studentsGuard],
   },
 ];
 

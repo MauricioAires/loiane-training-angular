@@ -1,10 +1,5 @@
 import { Service } from '@angular/core';
-
-export interface IStudent {
-  id: number;
-  name: string;
-  email: string;
-}
+import type { IStudent } from '../../interfaces/student';
 
 @Service()
 export class StudentsService {

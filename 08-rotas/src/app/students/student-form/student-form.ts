@@ -1,9 +1,10 @@
 import { Component, DestroyRef, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
-import { IStudent, StudentsService } from '../../shared/services/students/students';
+import { StudentsService } from '../../shared/services/students/students';
 import { FormsModule } from '@angular/forms';
 import { IFormCanDeactivate } from '../../shared/guards/students-deactivate/students-deactivate.interface';
+import { IStudent } from '../../shared/interfaces/student';
 
 @Component({
   imports: [FormsModule],
