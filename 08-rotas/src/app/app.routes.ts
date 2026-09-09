@@ -61,3 +61,12 @@ export const routes: Routes = [
  * como criar um guard canActive para direcionar para
  * a rota de login.
  */
+
+/**
+ * Não ter a # é padrão de roteamento do HTML5
+ *
+ * O container não aceite esse tipo de link
+ *
+ * Por isso o angular oferece a opção de adicionar um
+ * # não URL.
+ */
