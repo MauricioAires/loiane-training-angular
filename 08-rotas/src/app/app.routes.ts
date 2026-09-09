@@ -2,13 +2,14 @@ import type { Routes } from '@angular/router';
 
 import { authGuard } from './shared/guards/auth-guard/auth-guard';
 import { coursesGuard } from './shared/guards/courses-guard/courses-guard';
-import { studentsGuard } from './shared/guards/students/students-guard';
+import { authCanMatchGuard } from './shared/guards/auth-can-match-guard/auth-can-match-guard';
 
 export const routes: Routes = [
   {
     path: '',
     loadComponent: () => import('./home/home').then((c) => c.Home),
     canActivate: [authGuard],
+    canMatch: [authCanMatchGuard],
   },
   {
     path: 'login',
@@ -24,7 +25,7 @@ export const routes: Routes = [
   {
     path: 'students',
     loadChildren: () => import('./students/students.routing').then((m) => m.studentsRoutes),
-
+    canMatch: [authCanMatchGuard],
     canActivate: [authGuard],
   },
 ];
@@ -35,4 +36,8 @@ export const routes: Routes = [
  * e não verifica os path posteriores
  *
  * Enquanto o @canActivateChild verifica cara filho
+ */
+
+/**
+ * Semp
  */
