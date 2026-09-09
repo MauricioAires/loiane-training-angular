@@ -12,6 +12,7 @@
 
     <div class="flex flex-row gap-10 text-white">
       @if (showMenu()) {
+        <a routerLink="" routerLinkActive="text-blue-300" class="text-sm/6 font-semibold">Home</a>
         <a
           routerLink="/courses"
           [queryParams]="{ pagina: 1 }"

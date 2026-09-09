@@ -7,3 +7,12 @@ import { Component } from '@angular/core';
   templateUrl: './not-found.html',
 })
 export class NotFound {}
+
+/**
+ * Sempre que for declarar rotas, sempre colocar
+ * rotas que tem o endereço fixo no começo
+ * hard-coded ele compara de top-down
+ *
+ * Rota vazias e páginas não encontradas sempre no final
+ * das configurações das rotas.
+ */

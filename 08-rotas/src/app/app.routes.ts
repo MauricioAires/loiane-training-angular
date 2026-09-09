@@ -6,16 +6,9 @@ import { authCanMatchGuard } from './shared/guards/auth-can-match-guard/auth-can
 
 export const routes: Routes = [
   {
-    path: '',
-    loadComponent: () => import('./home/home').then((c) => c.Home),
-    canActivate: [authGuard],
-    canMatch: [authCanMatchGuard],
-  },
-  {
     path: 'login',
     loadComponent: () => import('./login/login').then((c) => c.Login),
   },
-
   {
     path: 'courses',
     loadChildren: () => import('./courses/courses.routing').then((m) => m.coursesRoutes),
@@ -28,7 +21,32 @@ export const routes: Routes = [
     canMatch: [authCanMatchGuard],
     canActivate: [authGuard],
   },
+  {
+    path: 'home',
+    loadComponent: () => import('./home/home').then((c) => c.Home),
+    canActivate: [authGuard],
+    canMatch: [authCanMatchGuard],
+  },
+  {
+    path: '',
+    pathMatch: 'full',
+    /**
+     * pathMatch ler mais sobre isso
+     * ler mais sobre redirecionamento.
+     * o prefix é para rotas filhas
+     */
+    redirectTo: '/home',
+  },
+  {
+    path: '**',
+    loadComponent: () => import('./not-found/not-found').then((c) => c.NotFound),
+  },
 ];
+
+/**
+ * Outra dita é configurar uma rota padrão ou uma rota
+ * de direcionamento
+ */
 
 /**
  * O @canActivate verifica a permissão de acesso a
@@ -39,5 +57,7 @@ export const routes: Routes = [
  */
 
 /**
- * Semp
+ * Posso colocar tanto um componente de not-found
+ * como criar um guard canActive para direcionar para
+ * a rota de login.
  */
