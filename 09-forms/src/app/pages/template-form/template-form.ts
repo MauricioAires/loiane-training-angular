@@ -26,3 +26,7 @@ export class TemplateForm {
     console.log(this.model());
   }
 }
+
+/**
+ *  Aplicando validações nos campos
+ */

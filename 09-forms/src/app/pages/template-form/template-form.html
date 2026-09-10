@@ -10,6 +10,7 @@
         name="name"
         autocomplete="name"
         aria-describedby="name"
+        required
         [ngModel]="model().name"
       />
     </div>
@@ -25,6 +26,8 @@
         name="email"
         autocomplete="email"
         aria-describedby="email"
+        required
+        email
         [ngModel]="model().email"
       />
     </div>
