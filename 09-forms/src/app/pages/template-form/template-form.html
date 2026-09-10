@@ -1,13 +1,16 @@
 <div class="bg-secondary-subtle p-4">
-  <form>
+  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
     <div class="form-group mb-3">
       <label for="email" class="form-label">Name</label>
       <input
         type="text"
         placeholder="Name"
         class="form-control"
-        id="email"
-        aria-describedby="email"
+        id="name"
+        name="name"
+        autocomplete="name"
+        [(ngModel)]="model().name"
+        aria-describedby="name"
       />
     </div>
 
@@ -18,6 +21,9 @@
         placeholder="nome@gail.com"
         class="form-control"
         id="email"
+        name="email"
+        [(ngModel)]="model().email"
+        autocomplete="email"
         aria-describedby="email"
       />
     </div>
