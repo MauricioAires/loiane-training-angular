@@ -48,6 +48,13 @@
       }
     </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [class.btn-secondary]="!form.valid"
+      [disabled]="!form.valid"
+    >
+      Submit
+    </button>
   </form>
 </div>
