@@ -1,5 +1,7 @@
+import { JsonPipe } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { FormDebug } from '../form-debug/form-debug';
 
 /**
  * FormsModule é o modulo utilizado
@@ -10,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-template-form',
-  imports: [FormsModule],
+  imports: [FormsModule, FormDebug],
   templateUrl: './template-form.html',
   styleUrl: './template-form.scss',
 })
