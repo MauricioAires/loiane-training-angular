@@ -9,11 +9,12 @@
         id="name"
         name="name"
         autocomplete="name"
-        [(ngModel)]="model().name"
         aria-describedby="name"
+        [ngModel]="model().name"
       />
     </div>
 
+    <!-- [] property binding -->
     <div class="form-group mb-3">
       <label for="email" class="form-label">Email address</label>
       <input
@@ -22,9 +23,9 @@
         class="form-control"
         id="email"
         name="email"
-        [(ngModel)]="model().email"
         autocomplete="email"
         aria-describedby="email"
+        [ngModel]="model().email"
       />
     </div>
 

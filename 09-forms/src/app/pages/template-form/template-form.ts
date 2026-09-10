@@ -16,11 +16,13 @@ import { FormsModule } from '@angular/forms';
 })
 export class TemplateForm {
   protected model = signal({
-    name: '',
-    email: '',
+    name: 'Mauricio Aires',
+    email: 'mau@gmail.com',
   });
 
   protected onSubmit(form: any): void {
-    console.log(form);
+    console.log(form?.value);
+
+    console.log(this.model());
   }
 }
