@@ -1,53 +1,203 @@
 <div class="bg-secondary-subtle p-4">
-  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+  <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="form-horizontal">
     @let hasNameError = !name.valid && name.touched;
 
     <div class="form-group has-validation mb-3">
-      <label for="email" class="form-label">Name</label>
-      <input
-        type="text"
-        placeholder="Name"
-        class="form-control"
-        [class.is-invalid]="hasNameError"
-        id="name"
-        name="name"
-        autocomplete="name"
-        aria-describedby="name"
-        required
-        [ngModel]="model().name"
-        [minlength]="1"
-        [maxlength]="100"
-        #name="ngModel"
-      />
+      <div class="col-sm-12">
+        <label for="email" class="form-label">Name</label>
+      </div>
+      <div class="col-sm-12">
+        <input
+          type="text"
+          placeholder="Name"
+          class="form-control"
+          [class.is-invalid]="hasNameError"
+          id="name"
+          name="name"
+          autocomplete="name"
+          aria-describedby="name"
+          required
+          [ngModel]="model().name"
+          [minlength]="1"
+          [maxlength]="100"
+          #name="ngModel"
+        />
 
-      @if (hasNameError) {
-        <div class="invalid-feedback">Nome é obrigatório</div>
-      }
+        @if (hasNameError) {
+          <div class="invalid-feedback">Nome is invalid</div>
+        }
+      </div>
     </div>
 
     <!-- [] property binding -->
     @let hasEmailError = !email.valid && email.touched;
     <div class="form-group mb-3 has-validation">
-      <label for="email" class="form-label">Email address</label>
+      <div class="col-sm-12">
+        <label for="email" class="form-label">Email address</label>
+      </div>
+      <div class="col-sm-12">
+        <input
+          type="email"
+          placeholder="nome@gail.com"
+          class="form-control"
+          id="email"
+          name="email"
+          autocomplete="email"
+          aria-describedby="email"
+          required
+          email
+          #email="ngModel"
+          [ngModel]="model().email"
+          [class.is-invalid]="hasEmailError"
+        />
+        @if (hasEmailError) {
+          <div class="invalid-feedback">E-mail is invalid</div>
+        }
+      </div>
+    </div>
+
+    <div class="form-group row mb-3 has-validation">
+      <div class="col-md-3">
+        @let hasCEPError = !cep.valid && cep.touched;
+        <label for="cep" class="form-label">CEP</label>
+        <input
+          type="text"
+          placeholder="CEP"
+          class="form-control"
+          id="cep"
+          name="cep"
+          autocomplete="cep"
+          aria-describedby="cep"
+          required
+          #cep="ngModel"
+          [ngModel]="model().cep"
+          [class.is-invalid]="hasCEPError"
+        />
+        @if (hasCEPError) {
+          <div class="invalid-feedback">CEP is invalid</div>
+        }
+      </div>
+      <div class="col-md-3">
+        @let hasNumberError = !number.valid && number.touched;
+        <label for="number" class="form-label">Number</label>
+        <input
+          type="text"
+          placeholder="Number"
+          class="form-control"
+          id="number"
+          name="number"
+          autocomplete="number"
+          aria-describedby="number"
+          required
+          #number="ngModel"
+          [ngModel]="model().number"
+          [class.is-invalid]="hasNumberError"
+        />
+        @if (hasNumberError) {
+          <div class="invalid-feedback">Number is invalid</div>
+        }
+      </div>
+      <div class="col-md-6">
+        <label for="complement" class="form-label">Complement</label>
+        <input
+          type="text"
+          placeholder="Complement"
+          class="form-control"
+          id="complement"
+          name="complement"
+          autocomplete="complement"
+          aria-describedby="complement"
+          [ngModel]="model().complement"
+        />
+      </div>
+    </div>
+    <div class="form-group col-md-12 mb-3 has-validation">
+      @let hasStreetError = !street.valid && street.touched;
+      <label for="street" class="form-label">Street</label>
       <input
-        type="email"
-        placeholder="nome@gail.com"
+        type="text"
+        placeholder="Street"
         class="form-control"
-        id="email"
-        name="email"
-        autocomplete="email"
-        aria-describedby="email"
+        id="street"
+        name="street"
+        autocomplete="street"
+        aria-describedby="street"
         required
-        email
-        #email="ngModel"
-        [ngModel]="model().email"
-        [class.is-invalid]="hasEmailError"
+        readonly
+        #street="ngModel"
+        [ngModel]="model().street"
+        [class.is-invalid]="hasStreetError"
       />
-      @if (hasEmailError) {
-        <div class="invalid-feedback">E-mail inválido</div>
+      @if (hasStreetError) {
+        <div class="invalid-feedback">Street is invalid</div>
       }
     </div>
 
+    <div class="form-group row mb-3 has-validation">
+      <div class="col-md-5">
+        @let hasNeighborhoodError = !neighborhood.valid && neighborhood.touched;
+        <label for="neighborhood" class="form-label">Neighborhood</label>
+        <input
+          type="text"
+          placeholder="Neighborhood"
+          class="form-control"
+          id="neighborhood"
+          name="neighborhood"
+          autocomplete="neighborhood"
+          aria-describedby="neighborhood"
+          required
+          readonly
+          #neighborhood="ngModel"
+          [ngModel]="model().neighborhood"
+          [class.is-invalid]="hasNeighborhoodError"
+        />
+        @if (hasNeighborhoodError) {
+          <div class="invalid-feedback">Neighborhood is invalid</div>
+        }
+      </div>
+      <div class="col-md-4">
+        @let hasCityError = !city.valid && city.touched;
+        <label for="city" class="form-label">City</label>
+        <input
+          type="text"
+          placeholder="City"
+          class="form-control"
+          id="city"
+          name="city"
+          autocomplete="city"
+          aria-describedby="city"
+          required
+          readonly
+          #city="ngModel"
+          [ngModel]="model().city"
+          [class.is-invalid]="hasCityError"
+        />
+        @if (hasCityError) {
+          <div class="invalid-feedback">City is invalid</div>
+        }
+      </div>
+      <div class="col-md-3">
+        @let hasStateError = !state.valid && state.touched;
+        <label for="state" class="form-label">State</label>
+        <input
+          type="text"
+          placeholder="State"
+          class="form-control"
+          id="state"
+          name="state"
+          autocomplete="state"
+          aria-describedby="state"
+          required
+          readonly
+          #state="ngModel"
+          [ngModel]="model().state"
+          [class.is-invalid]="hasStateError"
+        />
+        @if (hasStateError) {
+          <div class="invalid-feedback">State is invalid</div>
+        }
+      </div>
+    </div>
     <button
       type="submit"
       class="btn btn-primary"
@@ -57,6 +207,6 @@
       Submit
     </button>
 
-    <!-- <app-form-debug [form]="form" /> -->
+    <app-form-debug [form]="form" />
   </form>
 </div>

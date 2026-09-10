@@ -1,18 +1,13 @@
-@if (form().valid) {
-  <div class="mt-4">
-    <p>Detalhes do Form</p>
+<div class="mt-4">
+  <p>Detalhes do Form</p>
 
-    <pre>
+  <pre>
     Form válido: {{ form()?.valid }}
-  </pre
-    >
-    <pre>
+  </pre>
+  <pre>
     Form submetido: {{ form()?.submitted }}
-  </pre
-    >
-    <pre>
+  </pre>
+  <pre>
     Valores: {{ form()?.value | json }}
-  </pre
-    >
-  </div>
-}
+  </pre>
+</div>

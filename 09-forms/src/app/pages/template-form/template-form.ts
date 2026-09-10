@@ -1,7 +1,7 @@
 import { JsonPipe } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-// import { FormDebug } from '../form-debug/form-debug';
+import { FormDebug } from '../form-debug/form-debug';
 
 /**
  * FormsModule é o modulo utilizado
@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-template-form',
-  imports: [FormsModule],
+  imports: [FormsModule, FormDebug],
   templateUrl: './template-form.html',
   styleUrl: './template-form.scss',
 })
@@ -20,6 +20,13 @@ export class TemplateForm {
   protected model = signal({
     name: null,
     email: null,
+    cep: null,
+    number: null,
+    complement: null,
+    street: null,
+    neighborhood: null,
+    city: null,
+    state: null,
   });
 
   protected onSubmit(form: any): void {
