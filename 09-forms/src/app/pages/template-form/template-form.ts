@@ -1,7 +1,8 @@
-import { JsonPipe, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component, signal } from '@angular/core';
-import { FormControl, FormsModule, NgModel } from '@angular/forms';
-import { FormDebug } from '../form-debug/form-debug';
+import { FormsModule, NgModel } from '@angular/forms';
+import { FormDebug } from '../../shared/form-debug/form-debug';
+import { FieldControl } from '../../shared/field-control/field-control';
 
 /**
  * FormsModule é o modulo utilizado
@@ -12,7 +13,7 @@ import { FormDebug } from '../form-debug/form-debug';
 
 @Component({
   selector: 'app-template-form',
-  imports: [FormsModule, FormDebug, NgClass],
+  imports: [FormsModule, FormDebug, NgClass, FieldControl],
   templateUrl: './template-form.html',
   styleUrl: './template-form.scss',
 })
@@ -35,8 +36,8 @@ export class TemplateForm {
     // console.log(this.model());
   }
 
-  protected checkIsValidAndTouched(field: NgModel) {
-    return !field.valid && field.touched;
+  protected checkIsValidAndTouched(field: NgModel): boolean {
+    return (!field.valid && field.touched) ?? false;
   }
 
   protected applyCSSError(field: NgModel) {
