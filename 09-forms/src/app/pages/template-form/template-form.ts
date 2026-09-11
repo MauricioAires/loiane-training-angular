@@ -1,8 +1,11 @@
 import { NgClass } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
 import { FormDebug } from '../../shared/form-debug/form-debug';
 import { FieldControl } from '../../shared/field-control/field-control';
+import { HttpClient } from '@angular/common/http';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs';
 
 /**
  * FormsModule é o modulo utilizado
@@ -18,6 +21,9 @@ import { FieldControl } from '../../shared/field-control/field-control';
   styleUrl: './template-form.scss',
 })
 export class TemplateForm {
+  readonly #http = inject(HttpClient);
+  readonly #destroyRef = inject(DestroyRef);
+
   protected model = signal({
     name: null,
     email: null,
@@ -44,6 +50,40 @@ export class TemplateForm {
     return {
       'is-invalid': this.checkIsValidAndTouched(field),
     };
+  }
+
+  protected getCEP(cep: string): void {
+    cep = cep.replace(/\D/g, '');
+
+    if (cep === '') return;
+
+    const cepRegex = /^[0-9]{8}$/;
+
+    if (!cepRegex.test(cep)) return;
+
+    /**
+     * 1. Loading
+     * 2. Sucesso
+     * 3. Error
+     * 4. Empty
+     */
+
+    this.#http
+      .get(`//viacep.com.br/ws/${cep}/json`)
+      .pipe(takeUntilDestroyed(this.#destroyRef))
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if ('erro' in res) {
+            window.alert('CEP inválido');
+            return;
+          }
+        },
+        error: () => {
+          window.alert('CEP inválido');
+        },
+      });
   }
 }
 
