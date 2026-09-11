@@ -1,7 +1,5 @@
 <div class="bg-secondary-subtle p-4">
   <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="form-horizontal">
-    @let hasNameError = !name.valid && name.touched;
-
     <div class="form-group has-validation mb-3">
       <div class="col-sm-12">
         <label for="email" class="form-label">Name</label>
@@ -11,7 +9,7 @@
           type="text"
           placeholder="Name"
           class="form-control"
-          [class.is-invalid]="hasNameError"
+          [ngClass]="applyCSSError(name)"
           id="name"
           name="name"
           autocomplete="name"
@@ -23,14 +21,13 @@
           #name="ngModel"
         />
 
-        @if (hasNameError) {
+        @if (checkIsValidAndTouched(name)) {
           <div class="invalid-feedback">Nome is invalid</div>
         }
       </div>
     </div>
 
     <!-- [] property binding -->
-    @let hasEmailError = !email.valid && email.touched;
     <div class="form-group mb-3 has-validation">
       <div class="col-sm-12">
         <label for="email" class="form-label">Email address</label>
@@ -48,9 +45,9 @@
           email
           #email="ngModel"
           [ngModel]="model().email"
-          [class.is-invalid]="hasEmailError"
+          [ngClass]="applyCSSError(email)"
         />
-        @if (hasEmailError) {
+        @if (checkIsValidAndTouched(email)) {
           <div class="invalid-feedback">E-mail is invalid</div>
         }
       </div>
@@ -58,7 +55,6 @@
 
     <div class="form-group row mb-3 has-validation">
       <div class="col-md-3">
-        @let hasCEPError = !cep.valid && cep.touched;
         <label for="cep" class="form-label">CEP</label>
         <input
           type="text"
@@ -71,14 +67,13 @@
           required
           #cep="ngModel"
           [ngModel]="model().cep"
-          [class.is-invalid]="hasCEPError"
+          [ngClass]="applyCSSError(cep)"
         />
-        @if (hasCEPError) {
+        @if (checkIsValidAndTouched(cep)) {
           <div class="invalid-feedback">CEP is invalid</div>
         }
       </div>
       <div class="col-md-3">
-        @let hasNumberError = !number.valid && number.touched;
         <label for="number" class="form-label">Number</label>
         <input
           type="text"
@@ -91,9 +86,9 @@
           required
           #number="ngModel"
           [ngModel]="model().number"
-          [class.is-invalid]="hasNumberError"
+          [ngClass]="applyCSSError(number)"
         />
-        @if (hasNumberError) {
+        @if (checkIsValidAndTouched(number)) {
           <div class="invalid-feedback">Number is invalid</div>
         }
       </div>
@@ -112,7 +107,6 @@
       </div>
     </div>
     <div class="form-group col-md-12 mb-3 has-validation">
-      @let hasStreetError = !street.valid && street.touched;
       <label for="street" class="form-label">Street</label>
       <input
         type="text"
@@ -126,16 +120,15 @@
         readonly
         #street="ngModel"
         [ngModel]="model().street"
-        [class.is-invalid]="hasStreetError"
+        [ngClass]="applyCSSError(street)"
       />
-      @if (hasStreetError) {
+      @if (checkIsValidAndTouched(street)) {
         <div class="invalid-feedback">Street is invalid</div>
       }
     </div>
 
     <div class="form-group row mb-3 has-validation">
       <div class="col-md-5">
-        @let hasNeighborhoodError = !neighborhood.valid && neighborhood.touched;
         <label for="neighborhood" class="form-label">Neighborhood</label>
         <input
           type="text"
@@ -149,14 +142,13 @@
           readonly
           #neighborhood="ngModel"
           [ngModel]="model().neighborhood"
-          [class.is-invalid]="hasNeighborhoodError"
+          [ngClass]="applyCSSError(neighborhood)"
         />
-        @if (hasNeighborhoodError) {
+        @if (checkIsValidAndTouched(neighborhood)) {
           <div class="invalid-feedback">Neighborhood is invalid</div>
         }
       </div>
       <div class="col-md-4">
-        @let hasCityError = !city.valid && city.touched;
         <label for="city" class="form-label">City</label>
         <input
           type="text"
@@ -170,14 +162,13 @@
           readonly
           #city="ngModel"
           [ngModel]="model().city"
-          [class.is-invalid]="hasCityError"
+          [ngClass]="applyCSSError(city)"
         />
-        @if (hasCityError) {
+        @if (checkIsValidAndTouched(city)) {
           <div class="invalid-feedback">City is invalid</div>
         }
       </div>
       <div class="col-md-3">
-        @let hasStateError = !state.valid && state.touched;
         <label for="state" class="form-label">State</label>
         <input
           type="text"
@@ -191,9 +182,9 @@
           readonly
           #state="ngModel"
           [ngModel]="model().state"
-          [class.is-invalid]="hasStateError"
+          [ngClass]="applyCSSError(state)"
         />
-        @if (hasStateError) {
+        @if (checkIsValidAndTouched(state)) {
           <div class="invalid-feedback">State is invalid</div>
         }
       </div>
