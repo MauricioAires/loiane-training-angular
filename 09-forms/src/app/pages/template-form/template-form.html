@@ -74,7 +74,7 @@
             #cep="ngModel"
             [ngModel]="model().cep"
             [ngClass]="applyCSSError(cep)"
-            (blur)="getCEP($event.target.value)"
+            (blur)="getCEP($event.target.value, form)"
           />
 
           <div
