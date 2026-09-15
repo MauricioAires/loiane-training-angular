@@ -14,7 +14,14 @@
           autocomplete="name"
           aria-describedby="name"
           formControlName="name"
+          [ngClass]="applyCSSError('name')"
         />
+
+        <div
+          app-field-control
+          message="Name is invalid"
+          [showError]="checkIsValidAndTouched('name')"
+        ></div>
       </div>
     </div>
 
@@ -33,7 +40,14 @@
           autocomplete="email"
           aria-describedby="email"
           formControlName="email"
+          [ngClass]="applyCSSError('email')"
         />
+        <div
+          app-field-control
+          message="E-mail is required"
+          [showError]="checkIsValidAndTouched('email')"
+        ></div>
+        <div app-field-control message="E-mail is invalid" [showError]="!checkValidEmail()"></div>
       </div>
     </div>
 
@@ -198,7 +212,8 @@
 
     <div class="d-flex justify-content-between">
       <button type="button" class="btn btn-secondary" (click)="reset()">Cancel</button>
-      <button type="submit" class="btn btn-primary" [disabled]="!form().valid">Submit</button>
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <!-- <button type="submit" class="btn btn-primary" [disabled]="!form().valid">Submit</button> -->
     </div>
     <app-form-debug [form]="form()" />
   </form>

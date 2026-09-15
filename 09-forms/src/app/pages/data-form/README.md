@@ -15,3 +15,5 @@ Formulário é criado programaticamente e é sincronizado com a DOM/HTML.
 @today falta apenas 65 aulas, mais quantos dias será necessário?
 
 - Criando uma form com código Angular.
+
+- Acesso ao FormControl e CSS de validação dos campos.

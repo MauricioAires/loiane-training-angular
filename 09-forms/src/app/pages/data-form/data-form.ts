@@ -1,12 +1,14 @@
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgModel, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Component, DestroyRef, OnInit, signal } from '@angular/core';
 import { FormDebug } from '../../shared/form-debug/form-debug';
 import { HttpClient } from '@angular/common/http';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NgClass } from '@angular/common';
+import { FieldControl } from '../../shared/field-control/field-control';
 
 @Component({
   selector: 'app-data-form',
-  imports: [ReactiveFormsModule, FormDebug],
+  imports: [ReactiveFormsModule, FormDebug, NgClass, FieldControl],
   templateUrl: './data-form.html',
   styleUrl: './data-form.scss',
 })
@@ -33,11 +35,18 @@ export class DataForm implements OnInit {
     /**
      * é a gosto do freguês.
      */
+    /**
+     * Particularmente acho mais simples
+     */
 
     this.form.set(
       this.fb.group({
+        // name: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
         name: [null, [Validators.required]],
-        email: [null, [Validators.required]],
+        /**
+         * A validação do email foi adicionado apenas na versão v4
+         */
+        email: [null, [Validators.required, Validators.email]],
       }),
     );
   }
@@ -54,7 +63,7 @@ export class DataForm implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (res) => {
-          console.log(res);
+          console.log(this.form());
 
           /**
            * O reset deve ficar dentro do subscribe de de
@@ -62,7 +71,7 @@ export class DataForm implements OnInit {
            */
           // this.form().reset();
 
-          this.reset();
+          // this.reset();
         },
         error: (err) => {
           console.log(err);
@@ -72,5 +81,25 @@ export class DataForm implements OnInit {
 
   protected reset(): void {
     this.form().reset();
+  }
+
+  protected checkValidEmail(): boolean {
+    const field = this.form().get('email');
+
+    return field?.getError('invalid') && field.touched;
+  }
+
+  protected checkIsValidAndTouched(fieldName: string): boolean {
+    const field = this.form().get(fieldName);
+
+    if (field === null) return false;
+
+    return (!field.valid && field.touched) ?? false;
+  }
+
+  protected applyCSSError(fieldName: string) {
+    return {
+      'is-invalid': this.checkIsValidAndTouched(fieldName),
+    };
   }
 }
