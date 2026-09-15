@@ -13,7 +13,6 @@
           name="name"
           autocomplete="name"
           aria-describedby="name"
-          required
           formControlName="name"
         />
       </div>
@@ -33,7 +32,6 @@
           name="email"
           autocomplete="email"
           aria-describedby="email"
-          required
           formControlName="email"
         />
       </div>
@@ -197,8 +195,11 @@
         </div>
       </div>
     </div> -->
-    <button type="submit" class="btn btn-primary" [disabled]="!form().valid">Submit</button>
 
+    <div class="d-flex justify-content-between">
+      <button type="button" class="btn btn-secondary" (click)="reset()">Cancel</button>
+      <button type="submit" class="btn btn-primary" [disabled]="!form().valid">Submit</button>
+    </div>
     <app-form-debug [form]="form()" />
   </form>
 </div>

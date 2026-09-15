@@ -58,6 +58,8 @@ export class TemplateForm {
       .subscribe({
         next: (res) => {
           console.log(res);
+
+          form.form.reset();
         },
         error: (err) => {
           console.log(err);

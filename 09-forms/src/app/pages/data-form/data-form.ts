@@ -55,10 +55,22 @@ export class DataForm implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
+
+          /**
+           * O reset deve ficar dentro do subscribe de de
+           * preferência apenas no sucesso.
+           */
+          // this.form().reset();
+
+          this.reset();
         },
         error: (err) => {
           console.log(err);
         },
       });
+  }
+
+  protected reset(): void {
+    this.form().reset();
   }
 }
