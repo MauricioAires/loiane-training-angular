@@ -12,7 +12,7 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'template-form',
+    redirectTo: 'data-form',
   },
   {
     path: '**',
