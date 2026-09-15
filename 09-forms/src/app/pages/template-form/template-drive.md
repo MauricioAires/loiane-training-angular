@@ -23,3 +23,10 @@ uma vez.
 
 patchValue é quando deseja-se alterar apenas
 alguns dados.
+
+- Submetendo valores com HTTP POST
+
+Quando precisar fazer uma test de REST e não desejar criar um
+ENDPOINT podemos utilizar esse site.
+
+[Rest Test](https://resttesttest.com/)

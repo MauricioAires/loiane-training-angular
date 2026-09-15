@@ -48,7 +48,21 @@ export class TemplateForm {
   protected onSubmit(form: any): void {
     console.log(form);
 
-    // console.log(this.model());
+    this.#http
+      .post('https://jsonplaceholder.typicode.com/posts', JSON.stringify(form.value), {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .pipe(takeUntilDestroyed(this.#destroyRef))
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
 
   protected checkIsValidAndTouched(field: NgModel): boolean {
