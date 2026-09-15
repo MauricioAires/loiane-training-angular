@@ -1,5 +1,5 @@
 <div class="bg-secondary-subtle p-4">
-  <form class="form-horizontal" [formGroup]="form()">
+  <form class="form-horizontal" [formGroup]="form()" (ngSubmit)="onSubmit()">
     <div class="form-group has-validation mb-3">
       <div class="col-sm-12">
         <label for="email" class="form-label">Name</label>
