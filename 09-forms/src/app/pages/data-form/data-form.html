@@ -1,1 +1,204 @@
-<p>data-form works!</p>
+<div class="bg-secondary-subtle p-4">
+  <form class="form-horizontal" [formGroup]="form()">
+    <div class="form-group has-validation mb-3">
+      <div class="col-sm-12">
+        <label for="email" class="form-label">Name</label>
+      </div>
+      <div class="col-sm-12">
+        <input
+          type="text"
+          placeholder="Name"
+          class="form-control"
+          id="name"
+          name="name"
+          autocomplete="name"
+          aria-describedby="name"
+          required
+          formControlName="name"
+        />
+      </div>
+    </div>
+
+    <!-- [] property binding -->
+    <div class="form-group mb-3 has-validation">
+      <div class="col-sm-12">
+        <label for="email" class="form-label">Email address</label>
+      </div>
+      <div class="col-sm-12">
+        <input
+          type="email"
+          placeholder="nome@gmail.com"
+          class="form-control"
+          id="email"
+          name="email"
+          autocomplete="email"
+          aria-describedby="email"
+          required
+          formControlName="email"
+        />
+      </div>
+    </div>
+
+    <!-- Form Group -->
+    <!-- <div ngModelGroup="address">
+      <div class="form-group row mb-3 has-validation">
+        <div class="col-md-3">
+          <label for="cep" class="form-label">CEP</label>
+          <input
+            type="text"
+            placeholder="CEP"
+            class="form-control"
+            id="cep"
+            name="cep"
+            autocomplete="cep"
+            aria-describedby="cep"
+            required
+            #cep="ngModel"
+            [ngModel]="model().cep"
+            [ngClass]="applyCSSError(cep)"
+            (blur)="getCEP($event.target.value, form)"
+          />
+
+          <div
+            app-field-control
+            message="CEP is invalid"
+            [showError]="checkIsValidAndTouched(cep)"
+          ></div>
+        </div>
+        <div class="col-md-3">
+          <label for="number" class="form-label">Number</label>
+          <input
+            type="text"
+            placeholder="Number"
+            class="form-control"
+            id="number"
+            name="number"
+            autocomplete="number"
+            aria-describedby="number"
+            required
+            #number="ngModel"
+            [ngModel]="model().number"
+            [ngClass]="applyCSSError(number)"
+          />
+
+          <div
+            app-field-control
+            message="Number is invalid"
+            [showError]="checkIsValidAndTouched(number)"
+          ></div>
+        </div>
+        <div class="col-md-6">
+          <label for="complement" class="form-label">Complement</label>
+          <input
+            type="text"
+            placeholder="Complement"
+            class="form-control"
+            id="complement"
+            name="complement"
+            autocomplete="complement"
+            aria-describedby="complement"
+            [ngModel]="model().complement"
+          />
+        </div>
+      </div>
+      <div class="form-group col-md-12 mb-3 has-validation">
+        <label for="street" class="form-label">Street</label>
+        <input
+          type="text"
+          placeholder="Street"
+          class="form-control"
+          id="street"
+          name="street"
+          autocomplete="street"
+          aria-describedby="street"
+          required
+          readonly
+          #street="ngModel"
+          [ngModel]="model().street"
+          [ngClass]="applyCSSError(street)"
+        />
+
+        <div
+          app-field-control
+          message="Street is invalid"
+          [showError]="checkIsValidAndTouched(street)"
+        ></div>
+      </div>
+
+      <div class="form-group row mb-3 has-validation">
+        <div class="col-md-5">
+          <label for="neighborhood" class="form-label">Neighborhood</label>
+          <input
+            type="text"
+            placeholder="Neighborhood"
+            class="form-control"
+            id="neighborhood"
+            name="neighborhood"
+            autocomplete="neighborhood"
+            aria-describedby="neighborhood"
+            required
+            readonly
+            #neighborhood="ngModel"
+            [ngModel]="model().neighborhood"
+            [ngClass]="applyCSSError(neighborhood)"
+          />
+
+          <div
+            app-field-control
+            message="Neighborhood is invalid"
+            [showError]="checkIsValidAndTouched(neighborhood)"
+          ></div>
+        </div>
+        <div class="col-md-4">
+          <label for="city" class="form-label">City</label>
+          <input
+            type="text"
+            placeholder="City"
+            class="form-control"
+            id="city"
+            name="city"
+            autocomplete="city"
+            aria-describedby="city"
+            required
+            readonly
+            #city="ngModel"
+            [ngModel]="model().city"
+            [ngClass]="applyCSSError(city)"
+          />
+
+          <div
+            app-field-control
+            message="City is invalid"
+            [showError]="checkIsValidAndTouched(city)"
+          ></div>
+        </div>
+        <div class="col-md-3">
+          <label for="state" class="form-label">State</label>
+          <input
+            type="text"
+            placeholder="State"
+            class="form-control"
+            id="state"
+            name="state"
+            autocomplete="state"
+            aria-describedby="state"
+            required
+            readonly
+            #state="ngModel"
+            [ngModel]="model().state"
+            [ngClass]="applyCSSError(state)"
+          />
+
+          <div
+            app-field-control
+            message="State is invalid"
+            [showError]="checkIsValidAndTouched(state)"
+          ></div>
+        </div>
+      </div>
+    </div> -->
+    <button type="submit" class="btn btn-primary" [disabled]="!form().valid">Submit</button>
+
+    <app-form-debug [form]="form()" />
+  </form>
+</div>

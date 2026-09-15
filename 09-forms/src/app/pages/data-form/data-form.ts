@@ -1,9 +1,17 @@
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Component, OnInit, signal } from '@angular/core';
+import { FormDebug } from '../../shared/form-debug/form-debug';
+import { FieldControl } from '../../shared/field-control/field-control';
 
 @Component({
   selector: 'app-data-form',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, FormDebug, FieldControl],
   templateUrl: './data-form.html',
   styleUrl: './data-form.scss',
 })
@@ -29,8 +37,8 @@ export class DataForm implements OnInit {
 
     this.form.set(
       this.fb.group({
-        name: [null],
-        email: [null],
+        name: [null, [Validators.required]],
+        email: [null, [Validators.required]],
       }),
     );
   }
