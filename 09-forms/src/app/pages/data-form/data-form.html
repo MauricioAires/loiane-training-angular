@@ -66,6 +66,7 @@
             aria-describedby="cep"
             [ngClass]="applyCSSError('address.cep')"
             formControlName="cep"
+            (blur)="getCEP()"
           />
 
           <div
