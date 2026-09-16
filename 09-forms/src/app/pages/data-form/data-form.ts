@@ -13,6 +13,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NgClass } from '@angular/common';
 import { FieldControl } from '../../shared/field-control/field-control';
 import { ICEPData } from '../template-form/template-form';
+import { DropdownService } from '../../shared/services/dropdown/dropdown';
+import { StateBR } from '../../shared/models/state-br.model';
 
 @Component({
   selector: 'app-data-form',
@@ -22,15 +24,18 @@ import { ICEPData } from '../template-form/template-form';
 })
 export class DataForm implements OnInit {
   protected form = signal<FormGroup>({} as FormGroup);
+  protected states = signal<StateBR[]>([]);
 
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private destroyRef: DestroyRef,
+    private dropdownService: DropdownService,
   ) {}
 
   // sempre que o componente for inicializado.
-  public ngOnInit(): void {
+  ngOnInit(): void {
+    this.#fetchStates();
     // Form mais verbosa para criar form.
     // A melhor é usando o construtor
     // this.form.set(
@@ -51,7 +56,10 @@ export class DataForm implements OnInit {
     /**
      * Particularmente acho mais simples
      */
+    this.#buildForm();
+  }
 
+  #buildForm(): void {
     this.form.set(
       this.fb.group({
         // name: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
@@ -72,6 +80,20 @@ export class DataForm implements OnInit {
         }),
       }),
     );
+  }
+
+  #fetchStates(): void {
+    this.dropdownService
+      .fetchStates()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (res) => {
+          this.states.set(res);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
 
   private checkFormValidations(formGroup: FormGroup): void {
