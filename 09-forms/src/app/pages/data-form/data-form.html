@@ -174,18 +174,22 @@
         </div>
         <div class="col-md-3">
           <label for="state" class="form-label">State</label>
-          <input
-            type="text"
-            placeholder="State"
-            class="form-control"
+          <select
             id="state"
-            name="state"
+            class="form-control"
             autocomplete="state"
             aria-describedby="state"
-            readonly
             [ngClass]="applyCSSError('address.state')"
             formControlName="state"
-          />
+          >
+            <option value="" disabled selected hidden>Estado</option>
+
+            @for (state of states() | async; track state.id) {
+              <option [value]="state.nome">
+                {{ state.nome }}
+              </option>
+            }
+          </select>
 
           <div
             app-field-control

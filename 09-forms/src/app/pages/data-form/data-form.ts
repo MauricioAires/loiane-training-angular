@@ -10,22 +10,24 @@ import { Component, DestroyRef, OnInit, signal } from '@angular/core';
 import { FormDebug } from '../../shared/form-debug/form-debug';
 import { HttpClient } from '@angular/common/http';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { NgClass } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { FieldControl } from '../../shared/field-control/field-control';
 import { ICEPData } from '../template-form/template-form';
 import { DropdownService } from '../../shared/services/dropdown/dropdown';
 import { StateBR } from '../../shared/models/state-br.model';
 import { CepService } from '../../shared/services/cep-service/cep';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-data-form',
-  imports: [ReactiveFormsModule, FormDebug, NgClass, FieldControl],
+  imports: [ReactiveFormsModule, FormDebug, NgClass, FieldControl, AsyncPipe],
   templateUrl: './data-form.html',
   styleUrl: './data-form.scss',
 })
 export class DataForm implements OnInit {
   protected form = signal<FormGroup>({} as FormGroup);
-  protected states = signal<StateBR[]>([]);
+  // protected states = signal<StateBR[]>([]);
+  protected states = signal<Observable<StateBR[]>>(of());
 
   constructor(
     private fb: FormBuilder,
@@ -78,24 +80,14 @@ export class DataForm implements OnInit {
           street: [null, [Validators.required]],
           neighborhood: [null, [Validators.required]],
           city: [null, [Validators.required]],
-          state: [null, [Validators.required]],
+          state: ['', [Validators.required]],
         }),
       }),
     );
   }
 
   #fetchStates(): void {
-    this.dropdownService
-      .fetchStates()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: (res) => {
-          this.states.set(res);
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
+    this.states.set(this.dropdownService.fetchStates());
   }
 
   private checkFormValidations(formGroup: FormGroup): void {
