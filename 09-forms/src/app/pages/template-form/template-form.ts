@@ -6,6 +6,7 @@ import { FieldControl } from '../../shared/field-control/field-control';
 import { HttpClient } from '@angular/common/http';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
+import { CepService } from '../../shared/services/cep-service/cep';
 
 /**
  * FormsModule é o modulo utilizado
@@ -32,6 +33,7 @@ export interface ICEPData {
 export class TemplateForm {
   readonly #http = inject(HttpClient);
   readonly #destroyRef = inject(DestroyRef);
+  readonly #cepService = inject(CepService);
 
   protected model = signal({
     name: null,
@@ -80,23 +82,12 @@ export class TemplateForm {
   protected getCEP(cep: string, cepForm: NgForm): void {
     cep = cep.replace(/\D/g, '');
 
-    if (cep === '') return;
-
-    const cepRegex = /^[0-9]{8}$/;
-
-    if (!cepRegex.test(cep)) return;
-
-    /**
-     * 1. Loading
-     * 2. Sucesso ok
-     * 3. Error
-     * 4. Empty ok
-     */
+    if (cep === '' || cep == null) return;
 
     this.#resetForm(cepForm);
 
-    this.#http
-      .get(`//viacep.com.br/ws/${cep}/json`)
+    this.#cepService
+      .getCEP(cep)
       .pipe(takeUntilDestroyed(this.#destroyRef))
       .subscribe({
         next: (res) => {

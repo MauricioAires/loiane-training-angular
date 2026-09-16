@@ -15,6 +15,7 @@ import { FieldControl } from '../../shared/field-control/field-control';
 import { ICEPData } from '../template-form/template-form';
 import { DropdownService } from '../../shared/services/dropdown/dropdown';
 import { StateBR } from '../../shared/models/state-br.model';
+import { CepService } from '../../shared/services/cep-service/cep';
 
 @Component({
   selector: 'app-data-form',
@@ -31,6 +32,7 @@ export class DataForm implements OnInit {
     private http: HttpClient,
     private destroyRef: DestroyRef,
     private dropdownService: DropdownService,
+    private cepService: CepService,
   ) {}
 
   // sempre que o componente for inicializado.
@@ -173,38 +175,22 @@ export class DataForm implements OnInit {
   protected getCEP(): void {
     let cep = this.form().get('address.cep')?.value || '';
 
-    cep = cep.replace(/\D/g, '');
-
-    if (cep === '') return;
+    if (cep === '' || cep == null) return;
 
     const cepRegex = /^[0-9]{8}$/;
 
     if (!cepRegex.test(cep)) return;
 
-    /**
-     * 1. Loading
-     * 2. Sucesso ok
-     * 3. Error
-     * 4. Empty ok
-     */
-
     this.#resetForm();
 
-    this.http
-      .get(`//viacep.com.br/ws/${cep}/json`)
+    this.cepService
+      .getCEP(cep)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (res) => {
-          if ('erro' in res) {
-            window.alert('CEP inválido');
-            return;
-          }
-
           this.#fillForm(res as ICEPData);
         },
-        error: () => {
-          window.alert('CEP inválido');
-        },
+        error: () => {},
       });
   }
 
