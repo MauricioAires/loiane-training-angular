@@ -17,3 +17,7 @@ Formulário é criado programaticamente e é sincronizado com a DOM/HTML.
 - Criando uma form com código Angular.
 
 - Acesso ao FormControl e CSS de validação dos campos.
+
+- Migrando um form template driven para data driven.
+
+- Form Driven - Agrupando dados.

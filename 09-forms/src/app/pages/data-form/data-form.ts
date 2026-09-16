@@ -1,4 +1,11 @@
-import { FormBuilder, FormGroup, NgModel, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  NgModel,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Component, DestroyRef, OnInit, signal } from '@angular/core';
 import { FormDebug } from '../../shared/form-debug/form-debug';
 import { HttpClient } from '@angular/common/http';
@@ -29,6 +36,11 @@ export class DataForm implements OnInit {
     //   new FormGroup({
     //     name: new FormControl(null),
     //     email: new FormControl(null),
+
+    //     address: new FormGroup({
+    //       name: new FormControl(null),
+    //       email: new FormControl(null),
+    //     }),
     //   }),
     // );
 
@@ -47,6 +59,16 @@ export class DataForm implements OnInit {
          * A validação do email foi adicionado apenas na versão v4
          */
         email: [null, [Validators.required, Validators.email]],
+
+        address: this.fb.group({
+          cep: [null, [Validators.required]],
+          number: [null, [Validators.required]],
+          complement: [null],
+          street: [null, [Validators.required]],
+          neighborhood: [null, [Validators.required]],
+          city: [null, [Validators.required]],
+          state: [null, [Validators.required]],
+        }),
       }),
     );
   }
