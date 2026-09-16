@@ -74,8 +74,30 @@ export class DataForm implements OnInit {
     );
   }
 
+  private checkFormValidations(formGroup: FormGroup): void {
+    Object.keys(formGroup.controls).forEach((field) => {
+      const control = formGroup.get(field);
+
+      // Modificado // sujo
+      control?.markAsDirty();
+      // control?.markAllAsDirty();
+      // Tocado
+      control?.markAsTouched();
+      // control?.markAllAsTouched();
+
+      if (control instanceof FormGroup) {
+        this.checkFormValidations(control);
+      }
+    });
+  }
+
   protected onSubmit(): void {
     // console.log(this.form().value);
+
+    if (!this.form().valid) {
+      this.checkFormValidations(this.form());
+      return;
+    }
 
     this.http
       .post('https://jsonplaceholder.typicode.com/posts', JSON.stringify(this.form().value), {
@@ -117,7 +139,7 @@ export class DataForm implements OnInit {
 
     if (field === null) return false;
 
-    return (!field.valid && field.touched) ?? false;
+    return (!field.valid && (field.touched || field.dirty)) ?? false;
   }
 
   protected applyCSSError(fieldName: string) {

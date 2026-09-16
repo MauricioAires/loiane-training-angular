@@ -21,3 +21,7 @@ Formulário é criado programaticamente e é sincronizado com a DOM/HTML.
 - Migrando um form template driven para data driven.
 
 - Form Driven - Agrupando dados.
+
+- Form Data Driven => Verificar validação dos campos com botão de submit.
+
+- Desabilitar botão de submit é útil em uma página de login com poucos campos porque o usuário sabe deduzir facilmente quais campos estão faltando. para um form com muitos campos é mais complicado para o user perceber qual campo falta o se está em um formato elado.
