@@ -18,6 +18,8 @@ import { StateBR } from '../../shared/models/state-br.model';
 import { CepService } from '../../shared/services/cep-service/cep';
 import { Observable, of } from 'rxjs';
 import { Position } from '../../shared/models/position.mode';
+import { Technologies } from '../../shared/models/technologies.model';
+import { NewsLetter } from '../../shared/models/news-letter.model';
 
 @Component({
   selector: 'app-data-form',
@@ -30,6 +32,8 @@ export class DataForm implements OnInit {
   // protected states = signal<StateBR[]>([]);
   protected states = signal<Observable<StateBR[]>>(of());
   protected positions = signal<Position[]>([]);
+  protected technologies = signal<Technologies[]>([]);
+  protected newsletter = signal<NewsLetter[]>([]);
 
   constructor(
     private fb: FormBuilder,
@@ -43,6 +47,8 @@ export class DataForm implements OnInit {
   ngOnInit(): void {
     this.#fetchStates();
     this.#fetchPositions();
+    this.#fetchTechnologies();
+    this.#fetchNewsletter();
     // Form mais verbosa para criar form.
     // A melhor é usando o construtor
     // this.form.set(
@@ -86,9 +92,15 @@ export class DataForm implements OnInit {
           state: ['', [Validators.required]],
         }),
 
-        position: ['', Validators.required],
+        position: [null, Validators.required],
+        technologies: [null, Validators.required],
+        newsletter: ['n'],
       }),
     );
+  }
+
+  #fetchTechnologies(): void {
+    this.technologies.set(this.dropdownService.fetchTechnologies());
   }
 
   #fetchStates(): void {
@@ -97,6 +109,10 @@ export class DataForm implements OnInit {
 
   #fetchPositions(): void {
     this.positions.set(this.dropdownService.fetchPositions());
+  }
+
+  #fetchNewsletter(): void {
+    this.newsletter.set(this.dropdownService.fetchNewsletter());
   }
 
   private checkFormValidations(formGroup: FormGroup): void {
@@ -155,7 +171,7 @@ export class DataForm implements OnInit {
 
   protected setPosition(): void {
     const position = {
-      name: 'Dev',
+      name: 'Dev 2',
       level: 'Mid-leve',
       description: 'Dev Mid-level',
     };
@@ -163,11 +179,20 @@ export class DataForm implements OnInit {
     this.form().get('position')?.setValue(position);
   }
 
-  protected comparePosition(obj1: Position, obj2: Position): boolean {
-    console.log(obj1, obj2);
-    return obj1 && obj2 ? obj1.level === obj2.level : obj1 === obj2;
+  protected setTechnologies(): void {
+    this.form().get('technologies')?.setValue(['java', 'javascript', 'php']);
   }
 
+  protected comparePosition(obj1: Position, obj2: Position): boolean {
+    if (obj1 && obj2) {
+      return obj1.level === obj2.level && obj1.name === obj2.name;
+    }
+    return obj1 === obj2;
+  }
+
+  protected compareTechnology(a: string, b: string): boolean {
+    return a === b;
+  }
   protected checkValidEmail(): boolean {
     const field = this.form().get('email');
 

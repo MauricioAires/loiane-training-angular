@@ -25,3 +25,6 @@ Formulário é criado programaticamente e é sincronizado com a DOM/HTML.
 - Form Data Driven => Verificar validação dos campos com botão de submit.
 
 - Desabilitar botão de submit é útil em uma página de login com poucos campos porque o usuário sabe deduzir facilmente quais campos estão faltando. para um form com muitos campos é mais complicado para o user perceber qual campo falta o se está em um formato elado.
+
+- Formulários reativos Combobox Múltiplo
+- Botão do tipo Rádio
