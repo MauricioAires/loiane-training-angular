@@ -10,13 +10,14 @@ import { Component, DestroyRef, OnInit, signal } from '@angular/core';
 import { FormDebug } from '../../shared/form-debug/form-debug';
 import { HttpClient } from '@angular/common/http';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { AsyncPipe, NgClass } from '@angular/common';
+import { AsyncPipe, JsonPipe, NgClass } from '@angular/common';
 import { FieldControl } from '../../shared/field-control/field-control';
 import { ICEPData } from '../template-form/template-form';
 import { DropdownService } from '../../shared/services/dropdown/dropdown';
 import { StateBR } from '../../shared/models/state-br.model';
 import { CepService } from '../../shared/services/cep-service/cep';
 import { Observable, of } from 'rxjs';
+import { Position } from '../../shared/models/position.mode';
 
 @Component({
   selector: 'app-data-form',
@@ -28,6 +29,7 @@ export class DataForm implements OnInit {
   protected form = signal<FormGroup>({} as FormGroup);
   // protected states = signal<StateBR[]>([]);
   protected states = signal<Observable<StateBR[]>>(of());
+  protected positions = signal<Position[]>([]);
 
   constructor(
     private fb: FormBuilder,
@@ -40,6 +42,7 @@ export class DataForm implements OnInit {
   // sempre que o componente for inicializado.
   ngOnInit(): void {
     this.#fetchStates();
+    this.#fetchPositions();
     // Form mais verbosa para criar form.
     // A melhor é usando o construtor
     // this.form.set(
@@ -82,12 +85,18 @@ export class DataForm implements OnInit {
           city: [null, [Validators.required]],
           state: ['', [Validators.required]],
         }),
+
+        position: ['', Validators.required],
       }),
     );
   }
 
   #fetchStates(): void {
     this.states.set(this.dropdownService.fetchStates());
+  }
+
+  #fetchPositions(): void {
+    this.positions.set(this.dropdownService.fetchPositions());
   }
 
   private checkFormValidations(formGroup: FormGroup): void {
@@ -142,6 +151,21 @@ export class DataForm implements OnInit {
 
   protected reset(): void {
     this.form().reset();
+  }
+
+  protected setPosition(): void {
+    const position = {
+      name: 'Dev',
+      level: 'Mid-leve',
+      description: 'Dev Mid-level',
+    };
+
+    this.form().get('position')?.setValue(position);
+  }
+
+  protected comparePosition(obj1: Position, obj2: Position): boolean {
+    console.log(obj1, obj2);
+    return obj1 && obj2 ? obj1.level === obj2.level : obj1 === obj2;
   }
 
   protected checkValidEmail(): boolean {

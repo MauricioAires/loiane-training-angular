@@ -200,11 +200,58 @@
       </div>
     </div>
 
+    <div class="form-group mb-3 has-validation">
+      <div class="col-md-12">
+        <label for="position" class="form-label">Position</label>
+
+        <select
+          id="position"
+          class="form-control"
+          autocomplete="position"
+          aria-describedby="position"
+          [ngClass]="applyCSSError('position')"
+          formControlName="position"
+          [compareWith]="comparePosition"
+        >
+          <!--
+
+        sempre que trabalhar com object no value deve-se utilizar
+        ngValue e compareWith
+        -->
+          <option value="" disabled selected hidden>Position</option>
+
+          @for (position of positions(); track position.level) {
+            <option [ngValue]="position">
+              {{ position.description }}
+            </option>
+          }
+        </select>
+
+        <div
+          app-field-control
+          message="Position is invalid"
+          [showError]="checkIsValidAndTouched('position')"
+        ></div>
+      </div>
+    </div>
+
     <div class="d-flex justify-content-between">
       <button type="button" class="btn btn-secondary" (click)="reset()">Cancel</button>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="button" class="btn btn-outline" (click)="setPosition()">Set Position</button>
+      <button type="button" class="btn btn-primary">Submit</button>
       <!-- <button type="submit" class="btn btn-primary" [disabled]="!form().valid">Submit</button> -->
     </div>
-    <app-form-debug [form]="form()" />
   </form>
+
+  <app-form-debug [form]="form()" />
 </div>
+
+<!--
+
+O angular sempre trabalha com comparação de 3 iguais
+
+=== comparação entre ref.
+
+Objetos complexos e comparar as properties.
+
+-->
