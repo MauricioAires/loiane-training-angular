@@ -293,13 +293,31 @@
       </div>
     </div>
 
+    <div class="form-grop mb-3 has-validation col-md-12">
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="accept-terms"
+          formControlName="acceptTerms"
+          [ngClass]="applyCSSError('acceptTerms')"
+        />
+        <label class="form-check-label" for="accept-terms"> Aceitar termos de uso. </label>
+        <div
+          app-field-control
+          message="Please, accept the terms"
+          [showError]="checkIsValidAndTouched('acceptTerms')"
+        ></div>
+      </div>
+    </div>
+
     <div class="d-flex justify-content-between">
       <button type="button" class="btn btn-secondary" (click)="reset()">Cancel</button>
       <button type="button" class="btn btn-info" (click)="setPosition()">Set Position</button>
       <button type="button" class="btn btn-info" (click)="setTechnologies()">
         Set Technologies
       </button>
-      <button type="button" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary">Submit</button>
       <!-- <button type="submit" class="btn btn-primary" [disabled]="!form().valid">Submit</button> -->
     </div>
   </form>

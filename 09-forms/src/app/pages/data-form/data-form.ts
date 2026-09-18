@@ -95,6 +95,7 @@ export class DataForm implements OnInit {
         position: [null, Validators.required],
         technologies: [null, Validators.required],
         newsletter: ['n'],
+        acceptTerms: [null, Validators.requiredTrue],
       }),
     );
   }
@@ -193,6 +194,7 @@ export class DataForm implements OnInit {
   protected compareTechnology(a: string, b: string): boolean {
     return a === b;
   }
+
   protected checkValidEmail(): boolean {
     const field = this.form().get('email');
 
