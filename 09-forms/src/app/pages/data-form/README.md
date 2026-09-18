@@ -28,3 +28,5 @@ Formulário é criado programaticamente e é sincronizado com a DOM/HTML.
 
 - Formulários reativos Combobox Múltiplo
 - Botão do tipo Rádio
+
+- FormArray: Checkboxes Dinâmicos

@@ -16,7 +16,7 @@ import { ICEPData } from '../template-form/template-form';
 import { DropdownService } from '../../shared/services/dropdown/dropdown';
 import { StateBR } from '../../shared/models/state-br.model';
 import { CepService } from '../../shared/services/cep-service/cep';
-import { Observable, of } from 'rxjs';
+import { Observable, of, retry, single } from 'rxjs';
 import { Position } from '../../shared/models/position.mode';
 import { Technologies } from '../../shared/models/technologies.model';
 import { NewsLetter } from '../../shared/models/news-letter.model';
@@ -34,6 +34,7 @@ export class DataForm implements OnInit {
   protected positions = signal<Position[]>([]);
   protected technologies = signal<Technologies[]>([]);
   protected newsletter = signal<NewsLetter[]>([]);
+  protected frameworks = signal(['Angular', 'React', 'Vue', 'Sancha']);
 
   constructor(
     private fb: FormBuilder,
@@ -96,8 +97,19 @@ export class DataForm implements OnInit {
         technologies: [null, Validators.required],
         newsletter: ['n'],
         acceptTerms: [null, Validators.requiredTrue],
+        frameworks: this.#buildFrameworks(),
       }),
     );
+  }
+
+  /**
+   * O padrão de mercado é criar o array fora da lógica principal
+   * de criação do form
+   */
+  #buildFrameworks() {
+    const values = this.frameworks().map(() => new FormControl(false));
+
+    return this.fb.array(values);
   }
 
   #fetchTechnologies(): void {
@@ -138,11 +150,28 @@ export class DataForm implements OnInit {
 
     if (!this.form().valid) {
       this.checkFormValidations(this.form());
-      return;
+      // return;
     }
 
+    // Fazendo uma cópia para não modificar o form
+    let values = Object.assign(this.form().value);
+
+    /**
+     * Imutabilidade de objetos
+     */
+    values = Object.assign(values, {
+      frameworks: values.frameworks
+        .map((value: boolean, index: number) => {
+          if (value) {
+            return this.frameworks()[index];
+          }
+          return null;
+        })
+        .filter(Boolean),
+    });
+
     this.http
-      .post('https://jsonplaceholder.typicode.com/posts', JSON.stringify(this.form().value), {
+      .post('https://jsonplaceholder.typicode.com/posts', JSON.stringify(values), {
         headers: {
           'Content-Type': 'application/json',
         },

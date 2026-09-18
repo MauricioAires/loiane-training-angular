@@ -52,7 +52,7 @@
     </div>
 
     <!-- Form Group -->
-    <div formGroupName="address">
+    <div class="mb-4" formGroupName="address">
       <div class="form-group row mb-3 has-validation">
         <div class="col-md-3">
           <label for="cep" class="form-label">CEP</label>
@@ -200,114 +200,144 @@
       </div>
     </div>
 
-    <div class="form-group mb-3 has-validation">
-      <div class="col-md-12">
-        <label for="position" class="form-label">Position</label>
+    <div class="row mb-3">
+      <div class="form-group col-md-4 mb-3 has-validation">
+        <div class="col-md-12">
+          <label for="position" class="form-label">Position</label>
 
-        <select
-          id="position"
-          class="form-control"
-          autocomplete="position"
-          aria-describedby="position"
-          [ngClass]="applyCSSError('position')"
-          formControlName="position"
-          [compareWith]="comparePosition"
-        >
-          <!--
+          <select
+            id="position"
+            class="form-control"
+            autocomplete="position"
+            aria-describedby="position"
+            [ngClass]="applyCSSError('position')"
+            formControlName="position"
+            [compareWith]="comparePosition"
+          >
+            <!--
 
         sempre que trabalhar com object no value deve-se utilizar
         ngValue e compareWith
         -->
-          <option value="" disabled selected hidden>Position</option>
+            <option value="" disabled selected hidden>Position</option>
 
-          @for (position of positions(); track position.level) {
-            <option [ngValue]="position">
-              {{ position.description }}
-            </option>
-          }
-        </select>
+            @for (position of positions(); track position.level) {
+              <option [ngValue]="position">
+                {{ position.description }}
+              </option>
+            }
+          </select>
 
-        <div
-          app-field-control
-          message="Position is invalid"
-          [showError]="checkIsValidAndTouched('position')"
-        ></div>
+          <div
+            app-field-control
+            message="Position is invalid"
+            [showError]="checkIsValidAndTouched('position')"
+          ></div>
+        </div>
+      </div>
+
+      <div class="form-group mb-3 has-validation col-md-4">
+        <div class="col-md-12">
+          <label for="technologies" class="form-label">Technologies</label>
+
+          <select
+            id="technologies"
+            class="form-control"
+            autocomplete="technologies"
+            aria-describedby="technologies"
+            [ngClass]="applyCSSError('technologies')"
+            formControlName="technologies"
+            [compareWith]="compareTechnology"
+            multiple
+          >
+            <option value="" disabled selected hidden>Technologies</option>
+
+            @for (technology of technologies(); track technology.description) {
+              <option [value]="technology.name">
+                {{ technology.description }}
+              </option>
+            }
+          </select>
+
+          <div
+            app-field-control
+            message="Technologies is invalid"
+            [showError]="checkIsValidAndTouched('technologies')"
+          ></div>
+        </div>
+      </div>
+
+      <div class="form-group mb-3 has-validation col-md-4">
+        <div class="col-md-12">
+          <label class="form-label">Newsletter</label>
+
+          <div class="d-flex gap-5">
+            @for (option of newsletter(); track $index) {
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  formControlName="newsletter"
+                  [value]="option.value"
+                />
+                <label class="form-check-label" for="newsletter-true"
+                  >{{ option.description }}
+                </label>
+              </div>
+            }
+          </div>
+
+          <div
+            app-field-control
+            message="newsletter is invalid"
+            [showError]="checkIsValidAndTouched('newsletter')"
+          ></div>
+        </div>
       </div>
     </div>
 
-    <div class="form-group mb-3 has-validation">
-      <div class="col-md-12">
-        <label for="technologies" class="form-label">Technologies</label>
-
-        <select
-          id="technologies"
-          class="form-control"
-          autocomplete="technologies"
-          aria-describedby="technologies"
-          [ngClass]="applyCSSError('technologies')"
-          formControlName="technologies"
-          [compareWith]="compareTechnology"
-          multiple
-        >
-          <option value="" disabled selected hidden>Technologies</option>
-
-          @for (technology of technologies(); track technology.description) {
-            <option [value]="technology.name">
-              {{ technology.description }}
-            </option>
-          }
-        </select>
-
-        <div
-          app-field-control
-          message="Technologies is invalid"
-          [showError]="checkIsValidAndTouched('technologies')"
-        ></div>
+    <div class="row">
+      <div class="form-grop mb-3 has-validation col-md-4">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="accept-terms"
+            formControlName="acceptTerms"
+            [ngClass]="applyCSSError('acceptTerms')"
+          />
+          <label class="form-check-label" for="accept-terms"> Aceitar termos de uso. </label>
+          <div
+            app-field-control
+            message="Please, accept the terms"
+            [showError]="checkIsValidAndTouched('acceptTerms')"
+          ></div>
+        </div>
       </div>
-    </div>
-    <div class="form-group mb-3 has-validation">
-      <div class="col-md-12">
-        <label class="form-label">Newsletter</label>
+      <div class="form-grop mb-3 has-validation col-md-4">
+        <label for="frameworks" class="form-label">Frameworks</label>
 
-        <div class="d-flex gap-5">
-          @for (option of newsletter(); track $index) {
+        <div class="d-flex flex-row gap-3 flex-wrap" formArrayName="frameworks">
+          @for (framework of frameworks(); track $index) {
             <div class="form-check">
               <input
                 class="form-check-input"
-                type="radio"
-                formControlName="newsletter"
-                [value]="option.value"
+                type="checkbox"
+                [id]="'frameworks' + $index"
+                [formControlName]="$index"
+                [ngClass]="applyCSSError('frameworks')"
               />
-              <label class="form-check-label" for="newsletter-true"
-                >{{ option.description }}
+              <label class="form-check-label" [for]="'frameworks' + $index">
+                {{ framework }}
               </label>
             </div>
           }
+          <div
+            app-field-control
+            message="Please, select at least one."
+            [showError]="checkIsValidAndTouched('frameworks')"
+          ></div>
         </div>
-
-        <div
-          app-field-control
-          message="newsletter is invalid"
-          [showError]="checkIsValidAndTouched('newsletter')"
-        ></div>
-      </div>
-    </div>
-
-    <div class="form-grop mb-3 has-validation col-md-12">
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          id="accept-terms"
-          formControlName="acceptTerms"
-          [ngClass]="applyCSSError('acceptTerms')"
-        />
-        <label class="form-check-label" for="accept-terms"> Aceitar termos de uso. </label>
-        <div
-          app-field-control
-          message="Please, accept the terms"
-          [showError]="checkIsValidAndTouched('acceptTerms')"
-        ></div>
       </div>
     </div>
 
