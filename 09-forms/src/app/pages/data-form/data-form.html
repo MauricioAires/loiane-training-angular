@@ -297,7 +297,7 @@
     </div>
 
     <div class="row">
-      <div class="form-grop mb-3 has-validation col-md-4">
+      <div class="form-group mb-3 has-validation col-md-4">
         <div class="form-check">
           <input
             class="form-check-input"
@@ -314,7 +314,13 @@
           ></div>
         </div>
       </div>
-      <div class="form-grop mb-3 has-validation col-md-4">
+      <div class="form-group mb-3 has-validation col-md-4">
+        <input
+          type="text"
+          class="hidden ssr-only"
+          style="display: none"
+          [class.is-invalid]="!form().get('frameworks')?.valid"
+        />
         <label for="frameworks" class="form-label">Frameworks</label>
 
         <div class="d-flex flex-row gap-3 flex-wrap" formArrayName="frameworks">
@@ -332,12 +338,13 @@
               </label>
             </div>
           }
-          <div
-            app-field-control
-            message="Please, select at least one."
-            [showError]="checkIsValidAndTouched('frameworks')"
-          ></div>
         </div>
+
+        <div
+          app-field-control
+          message="Please, select at least one."
+          [showError]="checkIsValidAndTouched('frameworks')"
+        ></div>
       </div>
     </div>
 

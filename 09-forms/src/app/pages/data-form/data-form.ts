@@ -1,9 +1,12 @@
 import {
+  AbstractControl,
+  FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
   NgModel,
   ReactiveFormsModule,
+  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { Component, DestroyRef, OnInit, signal } from '@angular/core';
@@ -20,10 +23,11 @@ import { Observable, of, retry, single } from 'rxjs';
 import { Position } from '../../shared/models/position.mode';
 import { Technologies } from '../../shared/models/technologies.model';
 import { NewsLetter } from '../../shared/models/news-letter.model';
+import { formValidations } from '../../shared/utils/form-validation';
 
 @Component({
   selector: 'app-data-form',
-  imports: [ReactiveFormsModule, FormDebug, NgClass, FieldControl, AsyncPipe],
+  imports: [ReactiveFormsModule, FormDebug, NgClass, FieldControl, AsyncPipe, JsonPipe],
   templateUrl: './data-form.html',
   styleUrl: './data-form.scss',
 })
@@ -109,7 +113,7 @@ export class DataForm implements OnInit {
   #buildFrameworks() {
     const values = this.frameworks().map(() => new FormControl(false));
 
-    return this.fb.array(values);
+    return this.fb.array(values, formValidations.requiredMinCheckbox(1));
   }
 
   #fetchTechnologies(): void {

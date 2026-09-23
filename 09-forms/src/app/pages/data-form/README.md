@@ -30,3 +30,5 @@ Formulário é criado programaticamente e é sincronizado com a DOM/HTML.
 - Botão do tipo Rádio
 
 - FormArray: Checkboxes Dinâmicos
+
+- Formulários reativos: Validação Customizada (Checkbox)
