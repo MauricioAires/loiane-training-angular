@@ -90,7 +90,7 @@ export class DataForm implements OnInit {
          * essa mesma estrátegia pode ser utilizada para configmração
          * de senha.
          */
-        confirmEmail: [null, [Validators.required, Validators.email]],
+        confirmEmail: [null, [Validators.required, formValidations.equalsTo('email')]],
 
         address: this.fb.group({
           cep: [null, [Validators.required, formValidations.cepValidator]],
@@ -245,6 +245,13 @@ export class DataForm implements OnInit {
     if (field === null) return false;
 
     return (!field.valid && (field.touched || field.dirty)) ?? false;
+  }
+  protected checkIsRequired(fieldName: string): boolean {
+    const field = this.form().get(fieldName);
+
+    if (field === null) return false;
+
+    return field.hasError('required');
   }
 
   protected applyCSSError(fieldName: string) {

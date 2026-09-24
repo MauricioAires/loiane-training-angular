@@ -43,4 +43,32 @@ export const formValidations = {
 
     return null;
   },
+
+  equalsTo: (otherField: string): ValidatorFn => {
+    const validator: ValidatorFn = (control: AbstractControl) => {
+      if (!otherField) {
+        throw new Error('É necessário informar o campo.');
+      }
+
+      const parent = control.parent;
+
+      /**
+       * a validação pode ser executada antes do form ter sido
+       * construído, por isso tem essa validação
+       */
+      if (!parent) {
+        return null;
+      }
+
+      const field = parent.get(otherField);
+
+      if (!field) {
+        throw new Error(`O campo "${otherField}" não existe.`);
+      }
+
+      return field.value === control.value ? null : { equalsTo: true };
+    };
+
+    return validator;
+  },
 };
