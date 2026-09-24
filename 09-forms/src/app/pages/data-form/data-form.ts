@@ -86,9 +86,14 @@ export class DataForm implements OnInit {
          * A validação do email foi adicionado apenas na versão v4
          */
         email: [null, [Validators.required, Validators.email]],
+        /**
+         * essa mesma estrátegia pode ser utilizada para configmração
+         * de senha.
+         */
+        confirmEmail: [null, [Validators.required, Validators.email]],
 
         address: this.fb.group({
-          cep: [null, [Validators.required]],
+          cep: [null, [Validators.required, formValidations.cepValidator]],
           number: [null, [Validators.required]],
           complement: [null],
           street: [null, [Validators.required]],

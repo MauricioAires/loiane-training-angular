@@ -32,3 +32,7 @@ Formulário é criado programaticamente e é sincronizado com a DOM/HTML.
 - FormArray: Checkboxes Dinâmicos
 
 - Formulários reativos: Validação Customizada (Checkbox)
+
+- Formulários reativos: Validação Customizada (CEP)
+
+- Formulários reativos: Validação customizada (confirmação de email)

@@ -2,7 +2,7 @@
   <form class="form-horizontal" [formGroup]="form()" (ngSubmit)="onSubmit()">
     <div class="form-group has-validation mb-3">
       <div class="col-sm-12">
-        <label for="email" class="form-label">Name</label>
+        <label for="name" class="form-label">Name</label>
       </div>
       <div class="col-sm-12">
         <input
@@ -50,6 +50,29 @@
         <div app-field-control message="E-mail is invalid" [showError]="!checkValidEmail()"></div>
       </div>
     </div>
+    <div class="form-group mb-3 has-validation">
+      <div class="col-sm-12">
+        <label for="confirm-email" class="form-label">Confirm email address</label>
+      </div>
+      <div class="col-sm-12">
+        <input
+          type="confirmEmail"
+          placeholder="nome@gmail.com"
+          class="form-control"
+          id="confirmEmail"
+          name="confirmEmail"
+          autocomplete="confirmEmail"
+          aria-describedby="confirmEmail"
+          formControlName="confirmEmail"
+          [ngClass]="applyCSSError('confirmEmail')"
+        />
+        <div
+          app-field-control
+          message="Confirm e-mail is required"
+          [showError]="checkIsValidAndTouched('confirmEmail')"
+        ></div>
+      </div>
+    </div>
 
     <!-- Form Group -->
     <div class="mb-4" formGroupName="address">
@@ -71,8 +94,16 @@
 
           <div
             app-field-control
+            message="CEP is required"
+            [showError]="
+              checkIsValidAndTouched('address.cep') &&
+              !!form().get('address.cep')?.hasError('required')
+            "
+          ></div>
+          <div
+            app-field-control
             message="CEP is invalid"
-            [showError]="checkIsValidAndTouched('address.cep')"
+            [showError]="!!form().get('address.cep')?.hasError('cepInvalid')"
           ></div>
         </div>
         <div class="col-md-3">
