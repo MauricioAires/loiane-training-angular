@@ -50,7 +50,34 @@
         <div
           app-field-control
           message="E-mail is invalid"
-          [showError]="!checkValidEmail() && !checkIsRequired('email')"
+          [showError]="form().controls['email'].getError('email')"
+        ></div>
+
+        <!--
+
+     [showError]="form().controls['email'].status === 'PENDING'"
+     Quando a validação está indo para o servidor, obtendo a resposta
+
+     -->
+        <div
+          app-field-control
+          message="Validating email ..."
+          [showError]="form().controls['email'].status === 'PENDING'"
+        ></div>
+
+        @if (form().controls['email'].status === 'VALID') {
+          <span class="text-success">E-mail valid! </span>
+        }
+
+        <div
+          app-field-control
+          message="E-mail already used try another"
+          [showError]="form().controls['email'].hasError('emailUnavailable')"
+        ></div>
+        <div
+          app-field-control
+          message="Erro ao verificar e-mail."
+          [showError]="form().controls['email'].hasError('emailCheckFailed')"
         ></div>
       </div>
     </div>

@@ -19,15 +19,29 @@ import { ICEPData } from '../template-form/template-form';
 import { DropdownService } from '../../shared/services/dropdown/dropdown';
 import { StateBR } from '../../shared/models/state-br.model';
 import { CepService } from '../../shared/services/cep-service/cep';
-import { Observable, of, retry, single } from 'rxjs';
+import {
+  catchError,
+  debounce,
+  debounceTime,
+  delay,
+  map,
+  Observable,
+  of,
+  retry,
+  single,
+  switchMap,
+  take,
+  timer,
+} from 'rxjs';
 import { Position } from '../../shared/models/position.mode';
 import { Technologies } from '../../shared/models/technologies.model';
 import { NewsLetter } from '../../shared/models/news-letter.model';
 import { formValidations } from '../../shared/utils/form-validation';
+import { CheckEmailService } from './services/check-email/check-email-service';
 
 @Component({
   selector: 'app-data-form',
-  imports: [ReactiveFormsModule, FormDebug, NgClass, FieldControl, AsyncPipe, JsonPipe],
+  imports: [ReactiveFormsModule, FormDebug, NgClass, FieldControl, AsyncPipe],
   templateUrl: './data-form.html',
   styleUrl: './data-form.scss',
 })
@@ -46,6 +60,7 @@ export class DataForm implements OnInit {
     private destroyRef: DestroyRef,
     private dropdownService: DropdownService,
     private cepService: CepService,
+    private checkEmailService: CheckEmailService,
   ) {}
 
   // sempre que o componente for inicializado.
@@ -54,6 +69,7 @@ export class DataForm implements OnInit {
     this.#fetchPositions();
     this.#fetchTechnologies();
     this.#fetchNewsletter();
+
     // Form mais verbosa para criar form.
     // A melhor é usando o construtor
     // this.form.set(
@@ -77,6 +93,59 @@ export class DataForm implements OnInit {
     this.#buildForm();
   }
 
+  #checkEmail(email: string): void {
+    /**
+     * Os observables são preguiçosos a requisição
+     * só vai ocorrer se fizermos um subscribe.
+     */
+
+    this.checkEmailService
+      .checkEmail(email)
+      .pipe(take(1), takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+  }
+
+  /**
+   *
+   * Está correta essa validação?
+   * E se a requisição demorar para retornar
+   * e se de erro ?
+   *
+   * O que você está desenvolvendo é um padrão real de aplicações de produção: validação assíncrona com controle de requisições, tratamento de erros e feedback imediato ao usuário.
+   *
+   * @param formControl
+   * @returns
+   */
+  #checkEmailValidate(formControl: FormControl) {
+    /**
+     * Validação assíncronas não precisa de destroy o própio angular faz isso!
+     *
+     *     takeUntilDestroyed(this.destroyRef),
+     *
+     *
+     */
+    return timer(300).pipe(
+      switchMap(() => this.checkEmailService.checkEmail(formControl.value)),
+
+      map((existsEmail) =>
+        existsEmail
+          ? {
+              emailUnavailable: true,
+            }
+          : null,
+      ),
+      catchError(() => of({ emailCheckFailed: true })),
+      take(1),
+    );
+  }
+
   #buildForm(): void {
     this.form.set(
       this.fb.group({
@@ -85,7 +154,21 @@ export class DataForm implements OnInit {
         /**
          * A validação do email foi adicionado apenas na versão v4
          */
-        email: [null, [Validators.required, Validators.email]],
+        /**
+         * Estrutura do objeto de criação do input
+         *
+         * 1. Valor inicial
+         * 2. Validação síncrona
+         * 3. Validações assíncronas (sim, pode ser mais de uma)
+         *
+         * As validações assíncronas só são executadas quando o campo está valido
+         * após passar pelas validações síncronas
+         */
+        email: [
+          null,
+          [Validators.required, Validators.email],
+          [this.#checkEmailValidate.bind(this)],
+        ],
         /**
          * essa mesma estrátegia pode ser utilizada para configmração
          * de senha.
@@ -246,6 +329,7 @@ export class DataForm implements OnInit {
 
     return (!field.valid && (field.touched || field.dirty)) ?? false;
   }
+
   protected checkIsRequired(fieldName: string): boolean {
     const field = this.form().get(fieldName);
 
