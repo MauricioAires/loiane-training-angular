@@ -38,10 +38,11 @@ import { Technologies } from '../../shared/models/technologies.model';
 import { NewsLetter } from '../../shared/models/news-letter.model';
 import { formValidations } from '../../shared/utils/form-validation';
 import { CheckEmailService } from './services/check-email/check-email-service';
+import { ErrorMsg } from '../../shared/error-msg/error-msg';
 
 @Component({
   selector: 'app-data-form',
-  imports: [ReactiveFormsModule, FormDebug, NgClass, FieldControl, AsyncPipe],
+  imports: [ReactiveFormsModule, FormDebug, NgClass, FieldControl, AsyncPipe, ErrorMsg],
   templateUrl: './data-form.html',
   styleUrl: './data-form.scss',
 })
@@ -150,7 +151,7 @@ export class DataForm implements OnInit {
     this.form.set(
       this.fb.group({
         // name: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
-        name: [null, [Validators.required]],
+        name: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
         /**
          * A validação do email foi adicionado apenas na versão v4
          */

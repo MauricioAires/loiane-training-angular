@@ -38,3 +38,6 @@ Formulário é criado programaticamente e é sincronizado com a DOM/HTML.
 - Formulários reativos: Validação customizada (confirmação de email)
 
 - Validação assíncrona, realizar uma validação no backend.
+
+- Serviço de mensagem de erro para que todos os formuários
+  exibam as mensagens de erro de uma forma consistente.

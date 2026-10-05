@@ -71,4 +71,16 @@ export const formValidations = {
 
     return validator;
   },
+
+  getErrorMsg(fieldName: string, validatorName: string, validatorValue?: any) {
+    console.log(validatorName);
+    const config: Record<string, string> = {
+      required: `${fieldName} é obrigatório.`,
+      minlength: `${fieldName} precisa ter no mínimo ${validatorValue.requiredLength} caracteres.`,
+      maxlength: `${fieldName} precisa ter no máximo ${validatorValue.requiredLength} caracteres.`,
+      cepInvalid: `CEP inválido`,
+    };
+
+    return config[validatorName];
+  },
 };

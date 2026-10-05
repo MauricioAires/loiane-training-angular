@@ -17,11 +17,7 @@
           [ngClass]="applyCSSError('name')"
         />
 
-        <div
-          app-field-control
-          message="Name is invalid"
-          [showError]="checkIsValidAndTouched('name')"
-        ></div>
+        <div app-error-msg [control]="form().get('name')" label="Name"></div>
       </div>
     </div>
 
