@@ -38,6 +38,7 @@ export class CepService {
   private http = inject(HttpClient);
 
   getCEP(cep: string) {
+    console.log('CEP:', cep);
     cep = cep.replace(/\D/g, '');
 
     if (cep === '') return of({});

@@ -24,6 +24,7 @@ import {
   debounce,
   debounceTime,
   delay,
+  distinctUntilChanged,
   map,
   Observable,
   of,
@@ -31,6 +32,7 @@ import {
   single,
   switchMap,
   take,
+  tap,
   timer,
 } from 'rxjs';
 import { Position } from '../../shared/models/position.mode';
@@ -92,6 +94,37 @@ export class DataForm implements OnInit {
      * Particularmente acho mais simples
      */
     this.#buildForm();
+
+    this.#reactiveForm();
+  }
+
+  #reactiveForm(): void {
+    /**
+     * Observable
+     * Essas são as funções que dão nome ao forme
+     */
+    // this.form().statusChanges
+    // this.form().valueChanges
+    /**
+     * programação funcional e programação reativa
+     */
+    this.form()
+      .get('address.cep')
+      ?.statusChanges.pipe(
+        distinctUntilChanged(),
+        tap((value) => console.log('CEP Value', value)),
+        switchMap((status) =>
+          status === 'VALID'
+            ? this.cepService.getCEP(this.form().get('address.cep')!.value)
+            : of(null),
+        ),
+      )
+      .subscribe((dados) => (dados ? this.#fillForm(dados as ICEPData) : {}));
+
+    /**
+     * Conseguimos transformar qualquer valor JavaScript em um
+     * observable utilizando apenas RxJs
+     */
   }
 
   #checkEmail(email: string): void {
@@ -345,14 +378,14 @@ export class DataForm implements OnInit {
     };
   }
 
-  protected getCEP(): void {
-    let cep = this.form().get('address.cep')?.value || '';
+  #getCEP(): void {
+    const cep = this.form().get('address.cep')?.value || '';
 
     if (cep === '' || cep == null) return;
 
-    const cepRegex = /^[0-9]{8}$/;
+    // const cepRegex = /^[0-9]{8}$/;
 
-    if (!cepRegex.test(cep)) return;
+    // if (!cepRegex.test(cep)) return;
 
     this.#resetForm();
 

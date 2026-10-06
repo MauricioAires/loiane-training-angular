@@ -41,3 +41,4 @@ Formulário é criado programaticamente e é sincronizado com a DOM/HTML.
 
 - Serviço de mensagem de erro para que todos os formuários
   exibam as mensagens de erro de uma forma consistente.
+  - Hoje vamos descobrir porque chamamos os formulários reativos de formulários reativos.
