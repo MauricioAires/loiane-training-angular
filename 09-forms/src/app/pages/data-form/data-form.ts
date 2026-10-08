@@ -1,19 +1,15 @@
 import {
-  AbstractControl,
-  FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
-  NgModel,
   ReactiveFormsModule,
-  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { Component, DestroyRef, OnInit, signal } from '@angular/core';
 import { FormDebug } from '../../shared/form-debug/form-debug';
 import { HttpClient } from '@angular/common/http';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { AsyncPipe, JsonPipe, NgClass } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { FieldControl } from '../../shared/field-control/field-control';
 import { ICEPData } from '../template-form/template-form';
 import { DropdownService } from '../../shared/services/dropdown/dropdown';
@@ -21,15 +17,10 @@ import { StateBR } from '../../shared/models/state-br.model';
 import { CepService } from '../../shared/services/cep-service/cep';
 import {
   catchError,
-  debounce,
-  debounceTime,
-  delay,
   distinctUntilChanged,
   map,
   Observable,
   of,
-  retry,
-  single,
   switchMap,
   take,
   tap,
@@ -41,10 +32,11 @@ import { NewsLetter } from '../../shared/models/news-letter.model';
 import { formValidations } from '../../shared/utils/form-validation';
 import { CheckEmailService } from './services/check-email/check-email-service';
 import { ErrorMsg } from '../../shared/error-msg/error-msg';
+import { InputField } from '../../shared/input-field/input-field';
 
 @Component({
   selector: 'app-data-form',
-  imports: [ReactiveFormsModule, FormDebug, NgClass, FieldControl, AsyncPipe, ErrorMsg],
+  imports: [ReactiveFormsModule, FormDebug, NgClass, FieldControl, AsyncPipe, InputField],
   templateUrl: './data-form.html',
   styleUrl: './data-form.scss',
 })

@@ -1,25 +1,15 @@
 <div class="bg-secondary-subtle p-4">
   <form class="form-horizontal" [formGroup]="form()" (ngSubmit)="onSubmit()">
-    <div class="form-group has-validation mb-3">
-      <div class="col-sm-12">
-        <label for="name" class="form-label">Name</label>
-      </div>
-      <div class="col-sm-12">
-        <input
-          type="text"
-          placeholder="Name"
-          class="form-control"
-          id="name"
-          name="name"
-          autocomplete="name"
-          aria-describedby="name"
-          formControlName="name"
-          [ngClass]="applyCSSError('name')"
-        />
-
-        <div app-error-msg [control]="form().get('name')" label="Name"></div>
-      </div>
-    </div>
+    <app-input-field
+      classeCss="col-sm-12"
+      [classeCss]="applyCSSError('name')"
+      id="name"
+      label="Nome"
+      inputTipo="text"
+      [control]="form().get('name')"
+      formControlName="name"
+      [isReadOnly]="false"
+    />
 
     <!-- [] property binding -->
     <div class="form-group mb-3 has-validation">
