@@ -44,3 +44,9 @@ Formulário é criado programaticamente e é sincronizado com a DOM/HTML.
   - Hoje vamos descobrir porque chamamos os formulários reativos de formulários reativos.
 
 - Formulários reativos Campo Input customizado com Control Value assessor
+
+- Formulários reativos: Classe base para form
+
+- Herança x Composição
+
+Não é para evitar herança e utilizar apenas Composição

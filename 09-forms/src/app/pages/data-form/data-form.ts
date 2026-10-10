@@ -33,6 +33,7 @@ import { formValidations } from '../../shared/utils/form-validation';
 import { CheckEmailService } from './services/check-email/check-email-service';
 import { ErrorMsg } from '../../shared/error-msg/error-msg';
 import { InputField } from '../../shared/input-field/input-field';
+import { BaseForm } from '../../shared/base-form/base-form';
 
 @Component({
   selector: 'app-data-form',
@@ -40,8 +41,7 @@ import { InputField } from '../../shared/input-field/input-field';
   templateUrl: './data-form.html',
   styleUrl: './data-form.scss',
 })
-export class DataForm implements OnInit {
-  protected form = signal<FormGroup>({} as FormGroup);
+export class DataForm extends BaseForm implements OnInit {
   // protected states = signal<StateBR[]>([]);
   protected states = signal<Observable<StateBR[]>>(of());
   protected positions = signal<Position[]>([]);
@@ -56,7 +56,9 @@ export class DataForm implements OnInit {
     private dropdownService: DropdownService,
     private cepService: CepService,
     private checkEmailService: CheckEmailService,
-  ) {}
+  ) {
+    super(); // Chamar o construtor da classe mãe
+  }
 
   // sempre que o componente for inicializado.
   ngOnInit(): void {
@@ -246,30 +248,8 @@ export class DataForm implements OnInit {
     this.newsletter.set(this.dropdownService.fetchNewsletter());
   }
 
-  private checkFormValidations(formGroup: FormGroup): void {
-    Object.keys(formGroup.controls).forEach((field) => {
-      const control = formGroup.get(field);
-
-      // Modificado // sujo
-      control?.markAsDirty();
-      // control?.markAllAsDirty();
-      // Tocado
-      control?.markAsTouched();
-      // control?.markAllAsTouched();
-
-      if (control instanceof FormGroup) {
-        this.checkFormValidations(control);
-      }
-    });
-  }
-
-  protected onSubmit(): void {
+  override submit(): void {
     // console.log(this.form().value);
-
-    if (!this.form().valid) {
-      this.checkFormValidations(this.form());
-      // return;
-    }
 
     // Fazendo uma cópia para não modificar o form
     let values = Object.assign(this.form().value);
@@ -313,10 +293,6 @@ export class DataForm implements OnInit {
       });
   }
 
-  protected reset(): void {
-    this.form().reset();
-  }
-
   protected setPosition(): void {
     const position = {
       name: 'Dev 2',
@@ -340,34 +316,6 @@ export class DataForm implements OnInit {
 
   protected compareTechnology(a: string, b: string): boolean {
     return a === b;
-  }
-
-  protected checkValidEmail(): boolean {
-    const field = this.form().get('email');
-
-    return field?.getError('invalid') && field.touched;
-  }
-
-  protected checkIsValidAndTouched(fieldName: string): boolean {
-    const field = this.form().get(fieldName);
-
-    if (field === null) return false;
-
-    return (!field.valid && (field.touched || field.dirty)) ?? false;
-  }
-
-  protected checkIsRequired(fieldName: string): boolean {
-    const field = this.form().get(fieldName);
-
-    if (field === null) return false;
-
-    return field.hasError('required');
-  }
-
-  protected applyCSSError(fieldName: string) {
-    return {
-      'is-invalid': this.checkIsValidAndTouched(fieldName),
-    };
   }
 
   #getCEP(): void {
