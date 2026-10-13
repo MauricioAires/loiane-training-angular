@@ -78,7 +78,7 @@
           class="form-control"
           id="confirmEmail"
           name="confirmEmail"
-          autocomplete="confirmEmail"
+          autocomplete="email"
           aria-describedby="confirmEmail"
           formControlName="confirmEmail"
           [ngClass]="applyCSSError('confirmEmail')"
@@ -107,7 +107,7 @@
             class="form-control"
             id="cep"
             name="cep"
-            autocomplete="cep"
+            autocomplete="address-level4"
             aria-describedby="cep"
             [ngClass]="applyCSSError('address.cep')"
             formControlName="cep"
@@ -135,7 +135,7 @@
             class="form-control"
             id="number"
             name="number"
-            autocomplete="number"
+            autocomplete="cc-number"
             aria-describedby="number"
             [ngClass]="applyCSSError('address.number')"
             formControlName="number"
@@ -154,7 +154,7 @@
             placeholder="Complement"
             class="form-control"
             id="complement"
-            autocomplete="complement"
+            autocomplete="additional-name"
             aria-describedby="complement"
             formControlName="complement"
           />
@@ -168,7 +168,7 @@
           class="form-control"
           id="street"
           name="street"
-          autocomplete="street"
+          autocomplete="street-address"
           aria-describedby="street"
           readonly
           [ngClass]="applyCSSError('address.street')"
@@ -191,7 +191,7 @@
             class="form-control"
             id="neighborhood"
             name="neighborhood"
-            autocomplete="neighborhood"
+            autocomplete="address-level2"
             aria-describedby="neighborhood"
             readonly
             [ngClass]="applyCSSError('address.neighborhood')"
@@ -204,19 +204,25 @@
             [showError]="checkIsValidAndTouched('address.neighborhood')"
           ></div>
         </div>
+
         <div class="col-md-4">
-          <label for="city" class="form-label">City</label>
-          <input
-            type="text"
-            placeholder="City"
-            class="form-control"
+          <label for="state" class="form-label">City</label>
+          <select
             id="city"
-            autocomplete="city"
+            class="form-control"
+            autocomplete="off"
             aria-describedby="city"
-            readonly
             [ngClass]="applyCSSError('address.city')"
             formControlName="city"
-          />
+          >
+            <option value="" disabled selected hidden>City</option>
+
+            @for (city of cities(); track city.id) {
+              <option [value]="city.nome">
+                {{ city.nome }}
+              </option>
+            }
+          </select>
 
           <div
             app-field-control
@@ -224,6 +230,7 @@
             [showError]="checkIsValidAndTouched('address.city')"
           ></div>
         </div>
+
         <div class="col-md-3">
           <label for="state" class="form-label">State</label>
           <select
@@ -236,7 +243,7 @@
           >
             <option value="" disabled selected hidden>Estado</option>
 
-            @for (state of states() | async; track state.id) {
+            @for (state of states(); track state.id) {
               <option [value]="state.nome">
                 {{ state.nome }}
               </option>
@@ -321,7 +328,7 @@
 
       <div class="form-group mb-3 has-validation col-md-4">
         <div class="col-md-12">
-          <label class="form-label">Newsletter</label>
+          <label for="" class="form-label">Newsletter</label>
 
           <div class="d-flex gap-5">
             @for (option of newsletter(); track $index) {
@@ -385,7 +392,7 @@
                 [formControlName]="$index"
                 [ngClass]="applyCSSError('frameworks')"
               />
-              <label class="form-check-label" [for]="'frameworks' + $index">
+              <label class="form-check-label" for="">
                 {{ framework }}
               </label>
             </div>

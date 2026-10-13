@@ -50,3 +50,5 @@ Formulário é criado programaticamente e é sincronizado com a DOM/HTML.
 - Herança x Composição
 
 Não é para evitar herança e utilizar apenas Composição
+
+- Formulários reativos combobox aninhado Cidade + Estado

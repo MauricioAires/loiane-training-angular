@@ -18,6 +18,7 @@ import { CepService } from '../../shared/services/cep-service/cep';
 import {
   catchError,
   distinctUntilChanged,
+  EMPTY,
   map,
   Observable,
   of,
@@ -34,16 +35,18 @@ import { CheckEmailService } from './services/check-email/check-email-service';
 import { ErrorMsg } from '../../shared/error-msg/error-msg';
 import { InputField } from '../../shared/input-field/input-field';
 import { BaseForm } from '../../shared/base-form/base-form';
+import { ICity } from '../../shared/models/city.model';
 
 @Component({
   selector: 'app-data-form',
-  imports: [ReactiveFormsModule, FormDebug, NgClass, FieldControl, AsyncPipe, InputField],
+  imports: [ReactiveFormsModule, FormDebug, NgClass, FieldControl, InputField],
   templateUrl: './data-form.html',
   styleUrl: './data-form.scss',
 })
 export class DataForm extends BaseForm implements OnInit {
   // protected states = signal<StateBR[]>([]);
-  protected states = signal<Observable<StateBR[]>>(of());
+  protected states = signal<StateBR[]>([]);
+  protected cities = signal<ICity[]>([]);
   protected positions = signal<Position[]>([]);
   protected technologies = signal<Technologies[]>([]);
   protected newsletter = signal<NewsLetter[]>([]);
@@ -106,7 +109,7 @@ export class DataForm extends BaseForm implements OnInit {
       .get('address.cep')
       ?.statusChanges.pipe(
         distinctUntilChanged(),
-        tap((value) => console.log('CEP Value', value)),
+        // tap((value) => console.log('CEP Value', value)),
         switchMap((status) =>
           status === 'VALID'
             ? this.cepService.getCEP(this.form().get('address.cep')!.value)
@@ -114,6 +117,28 @@ export class DataForm extends BaseForm implements OnInit {
         ),
       )
       .subscribe((dados) => (dados ? this.#fillForm(dados as ICEPData) : {}));
+
+    // this.dropdownService.fetchCities(8).subscribe(console.log);
+
+    this.form()
+      .get('address.state')
+      ?.valueChanges.pipe(
+        // tap((state) => console.log('Novo estado: ', state)),
+        map((state) => this.states().filter((e) => e.nome === state)),
+        // tap(console.log),
+        map((state) => (state && state.length > 0 ? state[0].id : 0)),
+        switchMap((stateId) => this.dropdownService.fetchCities(Number(stateId))),
+        // tap(console.log),
+      )
+      .subscribe((cities) => {
+        /**
+         * 1. Empty
+         * 2. Success
+         * 3. Loading
+         * 4. Error
+         */
+        this.cities.set(cities);
+      });
 
     /**
      * Conseguimos transformar qualquer valor JavaScript em um
@@ -237,7 +262,9 @@ export class DataForm extends BaseForm implements OnInit {
   }
 
   #fetchStates(): void {
-    this.states.set(this.dropdownService.fetchStates());
+    this.dropdownService.fetchStates().subscribe((states) => {
+      this.states.set(states);
+    });
   }
 
   #fetchPositions(): void {

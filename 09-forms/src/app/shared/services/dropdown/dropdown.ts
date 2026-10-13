@@ -4,6 +4,8 @@ import { StateBR } from '../../models/state-br.model';
 import { Position } from '../../models/position.mode';
 import { NewsLetter } from '../../models/news-letter.model';
 import { Technologies } from '../../models/technologies.model';
+import { ICity } from '../../models/city.model';
+import { filter, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +16,12 @@ export class DropdownService {
 
   fetchStates() {
     return this.#http.get<StateBR[]>('data/statesBR.json');
+  }
+
+  fetchCities(stateId: number) {
+    return this.#http
+      .get<ICity[]>('data/cities.json')
+      .pipe(map((cities: ICity[]) => cities.filter((city) => Number(city.estado) === stateId)));
   }
 
   /**
