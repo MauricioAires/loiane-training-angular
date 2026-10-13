@@ -11,3 +11,5 @@ Boas práticas com o RxJs
 Upload de arquivos
 
 Interceptors
+
+A configuração do Angular Styles foi adicionado no arquivo de angular.json a partir a versão v6
