@@ -1,0 +1,13 @@
+{
+  "cursos": [
+    {
+      "nome": "Java",
+      "id": "4NtGbKVY1Pw"
+    },
+    {
+      "nome": "Java",
+      "id": "HzMF3MUHVYo"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
