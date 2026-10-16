@@ -18,3 +18,5 @@ Http / HttpClient => Simulando Servidor REST com
 json-server.
 
 Http GET: Listar registros
+
+Dica: Variável de Ambiente
