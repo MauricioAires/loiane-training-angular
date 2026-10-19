@@ -20,3 +20,5 @@ json-server.
 Http GET: Listar registros
 
 Dica: Variável de Ambiente
+
+- HTTP GET + Pipe Async
