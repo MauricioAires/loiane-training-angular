@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit, input } from '@angular/core';
 
 @Component({
   imports: [],
@@ -8,9 +8,9 @@ import { Component, Input, OnInit } from '@angular/core';
   templateUrl: './poc-async.html',
 })
 export class PocAsync implements OnInit {
-  @Input() nome!: string;
-  @Input() valor!: string;
-  @Input() estilo!: string;
+  readonly nome = input.required<string>();
+  readonly valor = input.required<string>();
+  readonly estilo = input.required<string>();
 
   ngOnInit() {}
 }

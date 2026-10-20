@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { PocUnsubComponent } from '../poc-async/components/poc-unsub.component';
 import { PocAsyncComponent } from '../poc-async/components/poc-async.component';
 import { PocTakeUntilComponent } from '../poc-async/components/poc-take-until.component';
 import { PocTakeComponent } from '../poc-async/components/poc-take.component';
 import { PocComponent } from '../poc-async/components/poc.component';
+import { EnviarValorService } from '../poc-async/components/enviar-valor.service';
 
 @Component({
   imports: [
@@ -19,15 +20,13 @@ import { PocComponent } from '../poc-async/components/poc.component';
   templateUrl: './unsubscribe-poc.html',
 })
 export class UnsubscribePoc {
-  mostrarComponentes = true;
+  readonly #service = inject(EnviarValorService);
 
-  // constructor(private service: EnviarValorService) { }
+  protected mostrarComponentes = true;
 
-  ngOnInit() {}
+  protected emitirValor(valor: string): void {}
 
-  emitirValor(valor: string) {}
-
-  destruirComponentes() {
+  protected destruirComponentes(): void {
     this.mostrarComponentes = !this.mostrarComponentes;
   }
 }
