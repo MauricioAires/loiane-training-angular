@@ -5,6 +5,7 @@
     </div>
     <div class="float-right">
       <button type="button" class="btn btn-primary" [routerLink]="['novo']">Novo Curso</button>
+      <button type="button" class="btn btn-secondary" (click)="onRefresh()">Atualizar</button>
     </div>
   </div>
 
@@ -47,7 +48,11 @@
         </tbody>
       </table>
     } @else {
-      <span> Carregando cursos... </span>
+      @if (error$ | async) {
+        <span> Erro ao carregar cursos. Tente novamente mais tarde. </span>
+      } @else {
+        <span> Carregando cursos... </span>
+      }
     }
   </div>
 </div>

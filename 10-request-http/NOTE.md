@@ -24,3 +24,4 @@ Dica: Variável de Ambiente
 - HTTP GET + Pipe Async
 
 - RxJS: Unsubscribe Automático
+- HTTP Capturando Erros + Erro com async

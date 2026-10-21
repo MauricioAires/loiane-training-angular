@@ -2,7 +2,7 @@ import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { RouterLinkWithHref } from '@angular/router';
 import { CursosService } from './services/cursos/cursos-service';
 import { Curso } from './models/curso';
-import { Observable, take } from 'rxjs';
+import { catchError, EMPTY, map, Observable, of, Subject, switchMap, take, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AsyncPipe } from '@angular/common';
 
@@ -32,11 +32,58 @@ export class Cursos implements OnInit {
    */
 
   protected cursos$!: Observable<Curso[]>;
+  /**
+   * Não precisa de um unsubscribe porque estou
+   * utilizando o pipe async e o Angular
+   * já fazer isso automaticamente.
+   */
+  protected error$ = new Subject<boolean>();
 
   ngOnInit(): void {
     // this.#list();
 
-    this.cursos$ = this.#cursosService.list();
+    this.onRefresh();
+  }
+
+  protected onRefresh(): void {
+    this.cursos$ = this.#cursosService.list().pipe(
+      catchError(() => {
+        // console.error(error);
+
+        this.error$.next(true);
+
+        return EMPTY;
+        // return of();
+      }),
+    );
+
+    this.#cursosService
+      .list()
+      .pipe(
+        tap(),
+        // switchMap(),
+        // map(),
+        /**
+         * Para usar de forma eficiente o catchError deve ser o último!
+         */
+        catchError(() => {
+          /**
+           * HANDLE ERROS
+           */
+          return EMPTY;
+        }),
+      )
+      .subscribe({
+        next: () => {
+          console.log('sucesso');
+        },
+        error: () => {
+          console.error('error');
+        },
+        complete: () => {
+          console.log('Observable completo!');
+        },
+      });
   }
 
   #list(): void {
