@@ -1,7 +1,7 @@
 import { Component, inject, input } from '@angular/core';
 import { BsModalRef, ModalModule } from 'ngx-bootstrap/modal';
 
-type AlertType = 'success' | 'warning' | 'danger';
+export type AlertType = 'success' | 'warning' | 'danger';
 @Component({
   imports: [ModalModule],
   selector: 'app-alert-modal',

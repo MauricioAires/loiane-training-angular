@@ -7,6 +7,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AsyncPipe } from '@angular/common';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { AlertModal } from '../../shared/alert-modal/alert-modal';
+import { AlertModalService } from '../../shared/alert-modal/alert-modal-service';
 
 @Component({
   imports: [RouterLinkWithHref, AsyncPipe],
@@ -20,7 +21,8 @@ import { AlertModal } from '../../shared/alert-modal/alert-modal';
 })
 export class Cursos implements OnInit {
   readonly #cursosService = inject(CursosService);
-  readonly #bsModalService = inject(BsModalService);
+  readonly #alertModalService = inject(AlertModalService);
+
   readonly #destroyRef = inject(DestroyRef);
 
   protected cursos = signal<Curso[]>([]);
@@ -91,14 +93,7 @@ export class Cursos implements OnInit {
   }
 
   #handleError(): void {
-    this.#bsModalRef.set(
-      this.#bsModalService.show(AlertModal, {
-        initialState: {
-          message: 'Erro ao carregar os cursos, tente novamente mais tarde.',
-          type: 'danger',
-        },
-      }),
-    );
+    this.#alertModalService.showAlertDanger('Erro ao carregar cursos. Tente novamente mais tarde.');
   }
 
   #list(): void {

@@ -29,3 +29,5 @@ Dica: Variável de Ambiente
 
 - Lib: [Bootstrap](https://getbootstrap.com/docs/6.0/components/alert/)
 - Lib: [Ngx Bootstrap](https://ng-bootstrap.github.io/#/home)
+
+- Serviço genérico de alerta.
