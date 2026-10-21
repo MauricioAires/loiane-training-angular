@@ -9,7 +9,7 @@ import { Component, OnInit, input } from '@angular/core';
 })
 export class PocAsync implements OnInit {
   readonly nome = input.required<string>();
-  readonly valor = input.required<string>();
+  readonly valor = input.required<string | null>();
   readonly estilo = input.required<string>();
 
   ngOnInit() {}

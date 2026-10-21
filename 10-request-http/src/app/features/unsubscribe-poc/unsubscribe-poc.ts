@@ -24,7 +24,9 @@ export class UnsubscribePoc {
 
   protected mostrarComponentes = true;
 
-  protected emitirValor(valor: string): void {}
+  protected emitirValor(valor: string): void {
+    this.#service.emitirValor(valor);
+  }
 
   protected destruirComponentes(): void {
     this.mostrarComponentes = !this.mostrarComponentes;
