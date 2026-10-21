@@ -25,3 +25,7 @@ Dica: Variável de Ambiente
 
 - RxJS: Unsubscribe Automático
 - HTTP Capturando Erros + Erro com async
+- HTTP Alerta de Erro Bootstrap
+
+- Lib: [Bootstrap](https://getbootstrap.com/docs/6.0/components/alert/)
+- Lib: [Ngx Bootstrap](https://ng-bootstrap.github.io/#/home)

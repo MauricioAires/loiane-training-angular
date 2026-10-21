@@ -5,6 +5,8 @@ import { Curso } from './models/curso';
 import { catchError, EMPTY, map, Observable, of, Subject, switchMap, take, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AsyncPipe } from '@angular/common';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { AlertModal } from '../../shared/alert-modal/alert-modal';
 
 @Component({
   imports: [RouterLinkWithHref, AsyncPipe],
@@ -17,11 +19,12 @@ import { AsyncPipe } from '@angular/common';
   preserveWhitespaces: true,
 })
 export class Cursos implements OnInit {
-  protected cursos = signal<Curso[]>([]);
-
   readonly #cursosService = inject(CursosService);
+  readonly #bsModalService = inject(BsModalService);
   readonly #destroyRef = inject(DestroyRef);
 
+  protected cursos = signal<Curso[]>([]);
+  readonly #bsModalRef = signal<BsModalRef | null>(null);
   /**
    * Anotação Finlandesa $ que consiste em
    * adicionar uma cifrão ($) no final de uma
@@ -49,7 +52,7 @@ export class Cursos implements OnInit {
     this.cursos$ = this.#cursosService.list().pipe(
       catchError(() => {
         // console.error(error);
-
+        this.#handleError();
         this.error$.next(true);
 
         return EMPTY;
@@ -70,6 +73,7 @@ export class Cursos implements OnInit {
           /**
            * HANDLE ERROS
            */
+          // this.#handleError();
           return EMPTY;
         }),
       )
@@ -84,6 +88,17 @@ export class Cursos implements OnInit {
           console.log('Observable completo!');
         },
       });
+  }
+
+  #handleError(): void {
+    this.#bsModalRef.set(
+      this.#bsModalService.show(AlertModal, {
+        initialState: {
+          message: 'Erro ao carregar os cursos, tente novamente mais tarde.',
+          type: 'danger',
+        },
+      }),
+    );
   }
 
   #list(): void {
