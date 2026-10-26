@@ -6,4 +6,12 @@ export const CURSOS_ROUTES: Routes = [
     pathMatch: 'full',
     loadComponent: () => import('./cursos').then((c) => c.Cursos),
   },
+  {
+    path: 'novo',
+    loadComponent: () => import('./components/cursos-form/cursos-form').then((c) => c.CursosForm),
+  },
+  {
+    path: 'editar/:id',
+    loadComponent: () => import('./components/cursos-form/cursos-form').then((c) => c.CursosForm),
+  },
 ];

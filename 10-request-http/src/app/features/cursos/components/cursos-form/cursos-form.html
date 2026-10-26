@@ -1,0 +1,42 @@
+<form novalidate class="mt-3 needs-validation" [formGroup]="form()">
+  <div class="form-row">
+    <div class="col-sm-12 mb-3">
+      <label for="nome">Nome do curso</label>
+      <input
+        type="text"
+        class="form-control"
+        id="nome"
+        placeholder="Nome do curso"
+        formControlName="nome"
+        [ngClass]="{
+          'is-invalid': submitted() && hasError('nome'),
+        }"
+      />
+
+      <!--
+
+      Sempre validação no Frontend e no backend!
+
+      -->
+
+      @if (hasError('nome'); as erros) {
+        @if (submitted() && erros['required']) {
+          <div class="invalid-feedback">Por favor informe um nome para o curso.</div>
+        } @else if (submitted() && erros['minlength']) {
+          <div class="invalid-feedback">
+            Nome precisa ter no mínimo {{ erros['minlength'].requiredLength }} caracteres.
+          </div>
+        } @else if (submitted() && erros['maxlength']) {
+          <div class="invalid-feedback">
+            Nome precisa ter no máximo {{ erros['maxlength'].requiredLength }} caracteres.
+          </div>
+        }
+      }
+    </div>
+  </div>
+
+  <div class="mt-4 d-flex justify-content-between">
+    <button class="btn btn-default" type="button" (click)="onCancel()">Cancelar</button>
+    <button class="btn btn-primary" type="submit" (click)="onSubmit()">Salvar</button>
+  </div>
+</form>

@@ -31,3 +31,4 @@ Dica: Variável de Ambiente
 - Lib: [Ngx Bootstrap](https://ng-bootstrap.github.io/#/home)
 
 - Serviço genérico de alerta.
+- Criando formulário para criar e editar cursos.
