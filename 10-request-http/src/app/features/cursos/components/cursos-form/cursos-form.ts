@@ -9,6 +9,9 @@ import {
 } from '@angular/forms';
 import { CursosService } from '../../services/cursos/cursos-service';
 import { AlertModalService } from '../../../../shared/alert-modal/alert-modal-service';
+import { ActivatedRoute } from '@angular/router';
+import { Curso } from '../../models/curso';
+import { map, switchMap } from 'rxjs';
 
 @Component({
   imports: [ReactiveFormsModule, NgClass],
@@ -21,17 +24,74 @@ export class CursosForm implements OnInit {
   readonly #cursosService = inject(CursosService);
   readonly #alertModalService = inject(AlertModalService);
   readonly #location = inject(Location);
+  readonly #activatedRoute = inject(ActivatedRoute);
 
   readonly form = signal<FormGroup>({} as FormGroup);
   readonly submitted = signal(false);
 
   ngOnInit(): void {
     this.#buildForm();
+    this.#queryParams();
+  }
+
+  #queryParams(): void {
+    /**
+     * O próprio Angular destroy?
+     * exceção?
+     */
+    this.#activatedRoute.params
+      .pipe(
+        map((params: any) => params['cursoId']),
+        /**
+         * Cancela as chamadas anteriores e faz apenas a última
+         *
+         * - switchMap
+         * - concatMap => a ordem das chamadas importa a proxima só é executada depois
+         * - mergeMap => a ordem não importa (Loi nunca usou em prod)
+         * - exhaustMap => a proxima chamada só executa depois que a chamada é retornado
+         * muito comum em login
+         */
+        switchMap((cursoId) => this.#cursosService.loadById(cursoId)),
+        // switchMap((curso) => obterAualas)
+      )
+      .subscribe((curso: Curso) => {
+        this.#fillForm(curso);
+      });
+  }
+  // #queryParams(): void {
+  //   this.#activatedRoute.params.subscribe((params: any) => {
+  //     const cursoId = params['cursoId'];
+
+  //     /**
+  //      * Cadê a verificação de id?
+  //      */
+
+  //     /**
+  //      * A  lógica sempre deve ser feita dentro do subscribe!
+  //      */
+
+  //     const curso$ = this.#cursosService.loadById(cursoId);
+
+  //     curso$.subscribe((curso) => {
+  //       this.#fillForm(curso);
+  //     });
+  //   });
+  // }
+
+  #fillForm(curso: Curso): void {
+    this.form().patchValue({
+      nome: curso.nome,
+      id: curso.id,
+    });
   }
 
   #buildForm(): void {
     this.form.set(
       this.#fb.group({
+        /**
+         * Pode existir no form e nào precisa existir no HTML
+         */
+        id: [null],
         nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
       }),
     );
@@ -57,6 +117,7 @@ export class CursosForm implements OnInit {
       complete: () => {},
     });
   }
+
   protected onCancel(): void {
     this.submitted.set(false);
     this.form().reset();

@@ -1,5 +1,5 @@
 import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
-import { RouterLinkWithHref } from '@angular/router';
+import { ActivatedRoute, Router, RouterLinkWithHref } from '@angular/router';
 import { CursosService } from './services/cursos/cursos-service';
 import { Curso } from './models/curso';
 import { catchError, EMPTY, map, Observable, of, Subject, switchMap, take, tap } from 'rxjs';
@@ -22,6 +22,8 @@ import { AlertModalService } from '../../shared/alert-modal/alert-modal-service'
 export class Cursos implements OnInit {
   readonly #cursosService = inject(CursosService);
   readonly #alertModalService = inject(AlertModalService);
+  readonly #router = inject(Router);
+  readonly #activatedRoute = inject(ActivatedRoute);
 
   readonly #destroyRef = inject(DestroyRef);
 
@@ -109,4 +111,10 @@ export class Cursos implements OnInit {
    * Memory leak
    * O pipe async se des escreve automaticamente.
    */
+
+  protected onEdit(cursoId: string) {
+    this.#router.navigate(['editar', cursoId], {
+      relativeTo: this.#activatedRoute,
+    });
+  }
 }

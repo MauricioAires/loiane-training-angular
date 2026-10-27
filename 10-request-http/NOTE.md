@@ -33,3 +33,4 @@ Dica: Variável de Ambiente
 - Serviço genérico de alerta.
 - Criando formulário para criar e editar cursos.
 - HTTP POST Criando cursos
+- HTTP: Editando cursos e observables aninhados.
