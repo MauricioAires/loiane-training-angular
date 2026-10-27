@@ -6,13 +6,19 @@ import { AlertModal, type AlertType } from './alert-modal';
 export class AlertModalService {
   readonly #bsModalService = inject(BsModalService);
 
-  private showAlert(message: string, type: AlertType): void {
+  private showAlert(message: string, type: AlertType, dismissTimeout?: number): void {
     var _bsModalRef: BsModalRef = this.#bsModalService.show(AlertModal, {
       initialState: {
         message,
         type,
       },
     });
+
+    if (dismissTimeout) {
+      setTimeout(() => {
+        _bsModalRef.hide();
+      }, dismissTimeout);
+    }
   }
 
   showAlertDanger(message: string): void {
@@ -23,6 +29,6 @@ export class AlertModalService {
    * Valores mágicos
    */
   showAlertSuccess(message: string): void {
-    this.showAlert(message, 'success');
+    this.showAlert(message, 'success', 2000);
   }
 }
