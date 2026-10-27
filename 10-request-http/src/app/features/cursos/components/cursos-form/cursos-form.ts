@@ -31,33 +31,34 @@ export class CursosForm implements OnInit {
 
   ngOnInit(): void {
     this.#buildForm();
-    this.#queryParams();
+    // this.#queryParams();
+    // this.#getResolver();
   }
 
-  #queryParams(): void {
-    /**
-     * O próprio Angular destroy?
-     * exceção?
-     */
-    this.#activatedRoute.params
-      .pipe(
-        map((params: any) => params['cursoId']),
-        /**
-         * Cancela as chamadas anteriores e faz apenas a última
-         *
-         * - switchMap
-         * - concatMap => a ordem das chamadas importa a proxima só é executada depois
-         * - mergeMap => a ordem não importa (Loi nunca usou em prod)
-         * - exhaustMap => a proxima chamada só executa depois que a chamada é retornado
-         * muito comum em login
-         */
-        switchMap((cursoId) => this.#cursosService.loadById(cursoId)),
-        // switchMap((curso) => obterAualas)
-      )
-      .subscribe((curso: Curso) => {
-        this.#fillForm(curso);
-      });
-  }
+  // #queryParams(): void {
+  //   /**
+  //    * O próprio Angular destroy?
+  //    * exceção?
+  //    */
+  //   this.#activatedRoute.params
+  //     .pipe(
+  //       map((params: any) => params['cursoId']),
+  //       /**
+  //        * Cancela as chamadas anteriores e faz apenas a última
+  //        *
+  //        * - switchMap
+  //        * - concatMap => a ordem das chamadas importa a proxima só é executada depois
+  //        * - mergeMap => a ordem não importa (Loi nunca usou em prod)
+  //        * - exhaustMap => a proxima chamada só executa depois que a chamada é retornado
+  //        * muito comum em login
+  //        */
+  //       switchMap((cursoId) => this.#cursosService.loadById(cursoId)),
+  //       // switchMap((curso) => obterAualas)
+  //     )
+  //     .subscribe((curso: Curso) => {
+  //       this.#fillForm(curso);
+  //     });
+  // }
   // #queryParams(): void {
   //   this.#activatedRoute.params.subscribe((params: any) => {
   //     const cursoId = params['cursoId'];
@@ -78,21 +79,26 @@ export class CursosForm implements OnInit {
   //   });
   // }
 
-  #fillForm(curso: Curso): void {
-    this.form().patchValue({
-      nome: curso.nome,
-      id: curso.id,
-    });
-  }
+  // #fillForm(curso: Curso): void {
+  //   this.form().patchValue({
+  //     nome: curso.nome,
+  //     id: curso.id,
+  //   });
+  // }
 
   #buildForm(): void {
+    const curso = this.#activatedRoute.snapshot.data['curso'];
+
     this.form.set(
       this.#fb.group({
         /**
          * Pode existir no form e nào precisa existir no HTML
          */
-        id: [null],
-        nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+        id: [curso.id],
+        nome: [
+          curso.nome,
+          [Validators.required, Validators.minLength(3), Validators.maxLength(250)],
+        ],
       }),
     );
   }
