@@ -35,3 +35,4 @@ Dica: Variável de Ambiente
 - HTTP POST Criando cursos
 - HTTP: Editando cursos e observables aninhados.
 - HTTP: Editando Cursos + Resolver (Rota)
+- HTTP PUT: Atualizando Cursos

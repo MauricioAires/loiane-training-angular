@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { CursosService } from '../../services/cursos/cursos-service';
 import { AlertModalService } from '../../../../shared/alert-modal/alert-modal-service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Curso } from '../../models/curso';
 import { map, switchMap } from 'rxjs';
 
@@ -25,6 +25,7 @@ export class CursosForm implements OnInit {
   readonly #alertModalService = inject(AlertModalService);
   readonly #location = inject(Location);
   readonly #activatedRoute = inject(ActivatedRoute);
+  readonly #router = inject(Router);
 
   readonly form = signal<FormGroup>({} as FormGroup);
   readonly submitted = signal(false);
@@ -86,6 +87,11 @@ export class CursosForm implements OnInit {
   //   });
   // }
 
+  /**
+   * Pode ter campo no componente mais não no HTML
+   * mas tudo que tem no html deve ter no componente.
+   */
+
   #buildForm(): void {
     const curso = this.#activatedRoute.snapshot.data['curso'];
 
@@ -111,11 +117,34 @@ export class CursosForm implements OnInit {
     this.submitted.set(true);
     if (!this.form().valid) return;
 
+    if (this.form().value.id) {
+      this.#update();
+      return;
+    }
+
+    this.#create();
+  }
+
+  #update(): void {
+    this.#cursosService.update(this.form().value).subscribe({
+      next: () => {
+        this.#alertModalService.showAlertSuccess('Curso atualizado com sucesso!');
+
+        this.#router.navigate(['cursos']);
+      },
+      error: () => {
+        this.#alertModalService.showAlertDanger('Erro ao atualizar curso, tente novamente.');
+      },
+      complete: () => {},
+    });
+  }
+
+  #create(): void {
     this.#cursosService.create(this.form().value).subscribe({
       next: () => {
         this.#alertModalService.showAlertSuccess('Criado com sucesso!');
 
-        this.#location.back();
+        this.#router.navigate(['cursos']);
       },
       error: () => {
         this.#alertModalService.showAlertDanger('Erro ao criar curso, tente novamente.');

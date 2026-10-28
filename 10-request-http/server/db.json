@@ -1,8 +1,8 @@
 {
   "cursos": [
     {
-      "nome": "Java",
-      "id": "4NtGbKVY1Pw"
+      "id": "4NtGbKVY1Pw",
+      "nome": "Java 1.0.5"
     },
     {
       "nome": "Java",
@@ -47,6 +47,14 @@
     {
       "id": "XCi-G_qxKXo",
       "nome": "Material 8"
+    },
+    {
+      "id": "GKW7-BILcPU",
+      "nome": "123123"
+    },
+    {
+      "id": "_bfLH4EzzMU",
+      "nome": "Materia 9.1"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

@@ -83,13 +83,13 @@ export class Cursos implements OnInit {
       )
       .subscribe({
         next: () => {
-          console.log('sucesso');
+          // console.log('sucesso');
         },
         error: () => {
-          console.error('error');
+          // console.error('error');
         },
         complete: () => {
-          console.log('Observable completo!');
+          // console.log('Observable completo!');
         },
       });
   }

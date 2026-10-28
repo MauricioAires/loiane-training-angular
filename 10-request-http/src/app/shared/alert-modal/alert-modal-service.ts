@@ -7,16 +7,18 @@ export class AlertModalService {
   readonly #bsModalService = inject(BsModalService);
 
   private showAlert(message: string, type: AlertType, dismissTimeout?: number): void {
-    var _bsModalRef: BsModalRef = this.#bsModalService.show(AlertModal, {
+    const bsModalRef: BsModalRef = this.#bsModalService.show(AlertModal, {
       initialState: {
         message,
         type,
       },
+      ignoreBackdropClick: true,
+      keyboard: false,
     });
 
     if (dismissTimeout) {
       setTimeout(() => {
-        _bsModalRef.hide();
+        bsModalRef.hide();
       }, dismissTimeout);
     }
   }
