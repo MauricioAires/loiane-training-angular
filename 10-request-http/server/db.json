@@ -2,7 +2,7 @@
   "cursos": [
     {
       "id": "4NtGbKVY1Pw",
-      "nome": "Java 1.0.5"
+      "nome": "Java 1.0.7"
     },
     {
       "nome": "Java",
@@ -55,6 +55,10 @@
     {
       "id": "_bfLH4EzzMU",
       "nome": "Materia 9.1"
+    },
+    {
+      "id": "VlNnGKYCFrg",
+      "nome": "asdasd"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

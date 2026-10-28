@@ -117,37 +117,26 @@ export class CursosForm implements OnInit {
     this.submitted.set(true);
     if (!this.form().valid) return;
 
+    this.#save();
+  }
+
+  #save(): void {
+    let successMessage = 'Criado com sucesso!';
+    let errorMessage = 'Erro ao criar curso, tente novamente.';
+
     if (this.form().value.id) {
-      this.#update();
-      return;
+      successMessage = 'Curso atualizado com sucesso!';
+      errorMessage = 'Erro ao atualizar curso, tente novamente.';
     }
 
-    this.#create();
-  }
-
-  #update(): void {
-    this.#cursosService.update(this.form().value).subscribe({
+    this.#cursosService.save(this.form().value).subscribe({
       next: () => {
-        this.#alertModalService.showAlertSuccess('Curso atualizado com sucesso!');
+        this.#alertModalService.showAlertSuccess(successMessage);
 
         this.#router.navigate(['cursos']);
       },
       error: () => {
-        this.#alertModalService.showAlertDanger('Erro ao atualizar curso, tente novamente.');
-      },
-      complete: () => {},
-    });
-  }
-
-  #create(): void {
-    this.#cursosService.create(this.form().value).subscribe({
-      next: () => {
-        this.#alertModalService.showAlertSuccess('Criado com sucesso!');
-
-        this.#router.navigate(['cursos']);
-      },
-      error: () => {
-        this.#alertModalService.showAlertDanger('Erro ao criar curso, tente novamente.');
+        this.#alertModalService.showAlertDanger(errorMessage);
       },
       complete: () => {},
     });
