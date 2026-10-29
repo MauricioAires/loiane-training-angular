@@ -28,7 +28,7 @@ Dica: Variável de Ambiente
 - HTTP Alerta de Erro Bootstrap
 
 - Lib: [Bootstrap](https://getbootstrap.com/docs/6.0/components/alert/)
-- Lib: [Ngx Bootstrap](https://ng-bootstrap.github.io/#/home)
+- Lib: [Ngx Bootstrap](https://valor-software.com/ngx-bootstrap/)
 
 - Serviço genérico de alerta.
 - Criando formulário para criar e editar cursos.
@@ -36,3 +36,4 @@ Dica: Variável de Ambiente
 - HTTP: Editando cursos e observables aninhados.
 - HTTP: Editando Cursos + Resolver (Rota)
 - HTTP PUT: Atualizando Cursos
+- HTTP: Popup de confirmação para remover cursos.

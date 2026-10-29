@@ -5,14 +5,6 @@
       "nome": "Java 1.0.7"
     },
     {
-      "nome": "Java",
-      "id": "HzMF3MUHVYo"
-    },
-    {
-      "nome": "asdasd",
-      "id": "N1eSNvtdoQ0"
-    },
-    {
       "nome": "JavaScript",
       "id": "liNHv6PDB80"
     },
@@ -21,44 +13,12 @@
       "id": "KnMJIzh5sbA"
     },
     {
-      "nome": "asdasd",
-      "id": "GfiFI0fT9M4"
-    },
-    {
       "nome": "Mauricio Aires",
       "id": "SInis3pHGks"
     },
     {
       "nome": "JavaScript",
       "id": "KT7HoBrkZec"
-    },
-    {
-      "nome": "111",
-      "id": "LR-GoPhJauY"
-    },
-    {
-      "nome": "JavaScript",
-      "id": "gVuyf-AK28w"
-    },
-    {
-      "nome": "Mariana",
-      "id": "bM3BK6zMG-g"
-    },
-    {
-      "id": "XCi-G_qxKXo",
-      "nome": "Material 8"
-    },
-    {
-      "id": "GKW7-BILcPU",
-      "nome": "123123"
-    },
-    {
-      "id": "_bfLH4EzzMU",
-      "nome": "Materia 9.1"
-    },
-    {
-      "id": "VlNnGKYCFrg",
-      "nome": "asdasd"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

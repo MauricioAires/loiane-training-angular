@@ -1,4 +1,12 @@
-import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  inject,
+  OnInit,
+  signal,
+  TemplateRef,
+  viewChild,
+} from '@angular/core';
 import { ActivatedRoute, Router, RouterLinkWithHref } from '@angular/router';
 import { CursosService } from './services/cursos/cursos-service';
 import { Curso } from './models/curso';
@@ -22,11 +30,12 @@ import { AlertModalService } from '../../shared/alert-modal/alert-modal-service'
 export class Cursos implements OnInit {
   readonly #cursosService = inject(CursosService);
   readonly #alertModalService = inject(AlertModalService);
+  readonly #bsModalService = inject(BsModalService);
   readonly #router = inject(Router);
   readonly #activatedRoute = inject(ActivatedRoute);
-
   readonly #destroyRef = inject(DestroyRef);
 
+  #deleteModalRef!: BsModalRef;
   protected cursos = signal<Curso[]>([]);
   readonly #bsModalRef = signal<BsModalRef | null>(null);
   /**
@@ -38,13 +47,20 @@ export class Cursos implements OnInit {
    * Pratica adotada pela comunidade.
    */
 
-  protected cursos$!: Observable<Curso[]>;
+  protected cursos$ = signal<Observable<Curso[]>>(of());
   /**
    * Não precisa de um unsubscribe porque estou
    * utilizando o pipe async e o Angular
    * já fazer isso automaticamente.
    */
   protected error$ = new Subject<boolean>();
+  /**
+   * Para fazer referência a uma variável que está no template
+   * no angular podemos utilizar o @ViewChild
+   */
+
+  protected deleteModalTemplateRef = viewChild<TemplateRef<unknown>>('deleteModal');
+  readonly cursoSelecionado = signal<Curso>({} as Curso);
 
   ngOnInit(): void {
     // this.#list();
@@ -53,15 +69,17 @@ export class Cursos implements OnInit {
   }
 
   protected onRefresh(): void {
-    this.cursos$ = this.#cursosService.list().pipe(
-      catchError(() => {
-        // console.error(error);
-        this.#handleError();
-        this.error$.next(true);
+    this.cursos$.set(
+      this.#cursosService.list().pipe(
+        catchError(() => {
+          // console.error(error);
+          this.#handleError();
+          this.error$.next(true);
 
-        return EMPTY;
-        // return of();
-      }),
+          return EMPTY;
+          // return of();
+        }),
+      ),
     );
 
     this.#cursosService
@@ -116,5 +134,41 @@ export class Cursos implements OnInit {
     this.#router.navigate(['editar', cursoId], {
       relativeTo: this.#activatedRoute,
     });
+  }
+
+  protected onDelete(curso: Curso) {
+    this.cursoSelecionado.set(curso);
+
+    this.#deleteModalRef = this.#bsModalService.show(
+      this.deleteModalTemplateRef() as TemplateRef<unknown>,
+      {
+        class: 'modal-sm',
+      },
+    );
+  }
+
+  protected onConfirmDelete(): void {
+    this.#deleteModalRef.hide();
+
+    /***
+     * Deleção lógica.
+     */
+    this.#cursosService.remove(this.cursoSelecionado().id).subscribe({
+      next: () => {
+        this.onRefresh();
+        this.#alertModalService.showAlertSuccess(
+          `Curso (${this.cursoSelecionado().nome}) removido com sucesso.`,
+        );
+      },
+      error: () => {
+        this.#alertModalService.showAlertDanger(
+          'Erro ao remover curso. Tente novamente mais tarde.',
+        );
+      },
+    });
+  }
+
+  protected onDeclineDelete(): void {
+    this.#deleteModalRef.hide();
   }
 }

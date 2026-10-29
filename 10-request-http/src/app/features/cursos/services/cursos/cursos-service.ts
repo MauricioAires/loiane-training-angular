@@ -33,4 +33,13 @@ export class CursosService {
 
     return this.#create(curso);
   }
+
+  remove(cursoId: string) {
+    /**
+     * Eu tivesse idea de adicionar um take no service em quanto
+     * eu ainda trabalhava na Brisanet e agora Loiane está utilizando
+     * o mesmo padrão.
+     */
+    return this.#http.delete(`${this.#API}/${cursoId}`).pipe(take(1));
+  }
 }
