@@ -40,3 +40,4 @@ Dica: Variável de Ambiente
 - Popup de confirmação genérica Bootstrap 4 (Com RxJS).
 - HTTP: Serviço Genérico de CRUD
   - Utilizar o padrão repositório (dica de arquitetura)
+- HTTP: Tela para Upload de Arquivo (Bootstrap 4)
