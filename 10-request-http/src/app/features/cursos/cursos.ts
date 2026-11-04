@@ -16,6 +16,7 @@ import { AsyncPipe } from '@angular/common';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { AlertModal } from '../../shared/alert-modal/alert-modal';
 import { AlertModalService } from '../../shared/alert-modal/alert-modal-service';
+import { Cursos2 } from './services/cursos2/cursos2';
 
 @Component({
   imports: [RouterLinkWithHref, AsyncPipe],
@@ -28,7 +29,7 @@ import { AlertModalService } from '../../shared/alert-modal/alert-modal-service'
   preserveWhitespaces: true,
 })
 export class Cursos implements OnInit {
-  readonly #cursosService = inject(CursosService);
+  readonly #cursosService = inject(Cursos2);
   readonly #alertModalService = inject(AlertModalService);
   readonly #bsModalService = inject(BsModalService);
   readonly #router = inject(Router);

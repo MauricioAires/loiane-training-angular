@@ -12,6 +12,7 @@ import { AlertModalService } from '../../../../shared/alert-modal/alert-modal-se
 import { ActivatedRoute, Router } from '@angular/router';
 import { Curso } from '../../models/curso';
 import { map, switchMap } from 'rxjs';
+import { Cursos2 } from '../../services/cursos2/cursos2';
 
 @Component({
   imports: [ReactiveFormsModule, NgClass],
@@ -21,7 +22,7 @@ import { map, switchMap } from 'rxjs';
 })
 export class CursosForm implements OnInit {
   readonly #fb = inject(FormBuilder);
-  readonly #cursosService = inject(CursosService);
+  readonly #cursosService = inject(Cursos2);
   readonly #alertModalService = inject(AlertModalService);
   readonly #location = inject(Location);
   readonly #activatedRoute = inject(ActivatedRoute);

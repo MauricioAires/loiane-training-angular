@@ -38,3 +38,5 @@ Dica: Variável de Ambiente
 - HTTP PUT: Atualizando Cursos
 - HTTP: Popup de confirmação para remover cursos.
 - Popup de confirmação genérica Bootstrap 4 (Com RxJS).
+- HTTP: Serviço Genérico de CRUD
+  - Utilizar o padrão repositório (dica de arquitetura)
