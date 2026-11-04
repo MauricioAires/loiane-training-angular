@@ -37,3 +37,4 @@ Dica: Variável de Ambiente
 - HTTP: Editando Cursos + Resolver (Rota)
 - HTTP PUT: Atualizando Cursos
 - HTTP: Popup de confirmação para remover cursos.
+- Popup de confirmação genérica Bootstrap 4 (Com RxJS).

@@ -9,16 +9,16 @@
       "id": "liNHv6PDB80"
     },
     {
-      "nome": "Mauricio Aires",
-      "id": "KnMJIzh5sbA"
-    },
-    {
-      "nome": "Mauricio Aires",
-      "id": "SInis3pHGks"
-    },
-    {
       "nome": "JavaScript",
       "id": "KT7HoBrkZec"
+    },
+    {
+      "id": "BZdz2mXBG9g",
+      "nome": "HMTL 5"
+    },
+    {
+      "id": "EI15Oc3AehE",
+      "nome": "CSS 3"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

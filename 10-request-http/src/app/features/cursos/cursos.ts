@@ -139,12 +139,42 @@ export class Cursos implements OnInit {
   protected onDelete(curso: Curso) {
     this.cursoSelecionado.set(curso);
 
-    this.#deleteModalRef = this.#bsModalService.show(
-      this.deleteModalTemplateRef() as TemplateRef<unknown>,
-      {
-        class: 'modal-sm',
-      },
+    // this.#deleteModalRef = this.#bsModalService.show(
+    //   this.deleteModalTemplateRef() as TemplateRef<unknown>,
+    //   {
+    //     class: 'modal-sm',
+    //   },
+    // );
+
+    const result$ = this.#alertModalService.showConfirm(
+      'Confirmação',
+      `Tem certeza que deseja remover o curso (${curso.nome})?`,
+      'Sim',
+      'Cancelar',
     );
+
+    /**
+     * SwitchMap pega o resultado do primeiro Observable
+     */
+    result$
+      .asObservable()
+      .pipe(
+        take(1),
+        switchMap((result) => (result ? this.#cursosService.remove(curso.id) : EMPTY)),
+      )
+      .subscribe({
+        next: () => {
+          this.onRefresh();
+          this.#alertModalService.showAlertSuccess(
+            `Curso (${this.cursoSelecionado().nome}) removido com sucesso.`,
+          );
+        },
+        error: () => {
+          this.#alertModalService.showAlertDanger(
+            'Erro ao remover curso. Tente novamente mais tarde.',
+          );
+        },
+      });
   }
 
   protected onConfirmDelete(): void {
@@ -153,19 +183,7 @@ export class Cursos implements OnInit {
     /***
      * Deleção lógica.
      */
-    this.#cursosService.remove(this.cursoSelecionado().id).subscribe({
-      next: () => {
-        this.onRefresh();
-        this.#alertModalService.showAlertSuccess(
-          `Curso (${this.cursoSelecionado().nome}) removido com sucesso.`,
-        );
-      },
-      error: () => {
-        this.#alertModalService.showAlertDanger(
-          'Erro ao remover curso. Tente novamente mais tarde.',
-        );
-      },
-    });
+    this.#cursosService.remove(this.cursoSelecionado().id).subscribe();
   }
 
   protected onDeclineDelete(): void {
