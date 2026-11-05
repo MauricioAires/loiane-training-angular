@@ -45,3 +45,8 @@ Thumbs.db
 
 
 .env
+
+# Node
+backend/node_modules
+server/uploads/*
+
