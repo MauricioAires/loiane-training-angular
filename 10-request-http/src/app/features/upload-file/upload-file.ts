@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { UploadFileService } from './services/upload-file/upload-file-service';
+import { take } from 'rxjs';
 
 @Component({
   imports: [],
@@ -7,6 +9,13 @@ import { Component } from '@angular/core';
   templateUrl: './upload-file.html',
 })
 export class UploadFile {
+  readonly #uploadFileService = inject(UploadFileService);
+  /**
+   * Evitar itens duplicados dessa forma
+   * utilizasse new Set()
+   */
+  protected readonly files = signal<Set<File>>(new Set());
+
   protected onChange(e: Event): void {
     const selectedFiles = (e.target as HTMLInputElement).files;
 
@@ -15,10 +24,32 @@ export class UploadFile {
 
     const fileNames = [];
 
+    const files = new Set<File>();
+
     for (let i = 0; i < selectedFiles.length; i++) {
       fileNames.push(selectedFiles[i].name);
+      files.add(selectedFiles[i]);
     }
 
-    console.log(fileNames.join(', '));
+    this.files.set(files);
+
+    // console.log(fileNames.join(', '));
+  }
+
+  protected onUpload(): void {
+    if (Array.from(this.files()).length === 0) return;
+
+    /**
+     * Esse tipo de requisição não pode trabalhar
+     * com take 1 porque o CORS faz uma chamada de teste
+     */
+    this.#uploadFileService.upload(this.files(), 'http://localhost:8000/upload').subscribe({
+      next: () => {
+        console.log('Upload concluído');
+      },
+      error: () => {
+        console.error('Error ao tentar fazer o upload');
+      },
+    });
   }
 }

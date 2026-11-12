@@ -41,3 +41,4 @@ Dica: Variável de Ambiente
 - HTTP: Serviço Genérico de CRUD
   - Utilizar o padrão repositório (dica de arquitetura)
 - HTTP: Tela para Upload de Arquivo (Bootstrap 4)
+- Upload de Aquivo: HTTP Request com FormData
