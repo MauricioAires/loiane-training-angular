@@ -2,7 +2,7 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { UploadFileService } from './services/upload-file/upload-file-service';
 import { take } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { HttpEventType } from '@angular/common/http';
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 
 @Component({
   imports: [],
@@ -16,6 +16,7 @@ export class UploadFile {
    * Evitar itens duplicados dessa forma
    * utilizasse new Set()
    */
+  protected readonly progress = signal(50);
   protected readonly files = signal<Set<File>>(new Set());
   protected readonly hasSelectFiles = computed(() => {
     return Array.from(this.files()).length > 0;
@@ -36,6 +37,7 @@ export class UploadFile {
       files.add(selectedFiles[i]);
     }
 
+    this.progress.set(0);
     this.files.set(files);
 
     // console.log(fileNames.join(', '));
@@ -53,16 +55,30 @@ export class UploadFile {
      * template literal
      */
     this.#uploadFileService.upload(this.files(), `${environment.BASE_URL}/upload`).subscribe({
-      next: (res) => {
+      next: (event: HttpEvent<object>) => {
         /**
          * Funciona apenas para upload e download de arquivos
          */
         // HttpEventType();
-        console.log(res);
-        console.log('Upload concluído');
+        // console.log(event);
+
+        // console.log(event.type);
+
+        if (event.type === HttpEventType.Response) {
+          // console.log('Upload concluído');
+        } else if (event.type === HttpEventType.UploadProgress) {
+          const percentDone = Math.round((event.loaded * 100) / event.total!);
+
+          console.log(`Progress: ${percentDone}`);
+
+          this.progress.set(percentDone);
+        }
       },
       error: () => {
         console.error('Error ao tentar fazer o upload');
+      },
+      complete: () => {
+        console.log('Upload concluído');
       },
     });
   }
