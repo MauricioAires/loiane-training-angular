@@ -1,7 +1,8 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { UploadFileService } from './services/upload-file/upload-file-service';
 import { take } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { HttpEventType } from '@angular/common/http';
 
 @Component({
   imports: [],
@@ -16,6 +17,9 @@ export class UploadFile {
    * utilizasse new Set()
    */
   protected readonly files = signal<Set<File>>(new Set());
+  protected readonly hasSelectFiles = computed(() => {
+    return Array.from(this.files()).length > 0;
+  });
 
   protected onChange(e: Event): void {
     const selectedFiles = (e.target as HTMLInputElement).files;
@@ -38,7 +42,7 @@ export class UploadFile {
   }
 
   protected onUpload(): void {
-    if (Array.from(this.files()).length === 0) return;
+    if (!this.hasSelectFiles()) return;
 
     /**
      * Esse tipo de requisição não pode trabalhar
@@ -49,7 +53,12 @@ export class UploadFile {
      * template literal
      */
     this.#uploadFileService.upload(this.files(), `${environment.BASE_URL}/upload`).subscribe({
-      next: () => {
+      next: (res) => {
+        /**
+         * Funciona apenas para upload e download de arquivos
+         */
+        // HttpEventType();
+        console.log(res);
         console.log('Upload concluído');
       },
       error: () => {

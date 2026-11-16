@@ -44,3 +44,4 @@ Dica: Variável de Ambiente
 - Upload de Aquivo: HTTP Request com FormData\
 - Http: Removendo CORS com Angular Proxy?
   - habilitar proxy do angular para funcionar com qualquer backend.
+- Barra de progresso + observando eventos Http.

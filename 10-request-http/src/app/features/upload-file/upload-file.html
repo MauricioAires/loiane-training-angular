@@ -5,7 +5,7 @@
 </div>
 
 <div class="mt-3">
-  <button type="button" class="btn btn-primary" (click)="onUpload()" [disabled]="false">
+  <button type="button" class="btn btn-primary" (click)="onUpload()" [disabled]="!hasSelectFiles()">
     Upload
   </button>
 </div>
