@@ -3,6 +3,7 @@ import { UploadFileService } from './services/upload-file/upload-file-service';
 import { take } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
+import { filterResponse, uploadProgress } from '../../shared/utils/rxjs-operators';
 
 @Component({
   imports: [],
@@ -16,7 +17,7 @@ export class UploadFile {
    * Evitar itens duplicados dessa forma
    * utilizasse new Set()
    */
-  protected readonly progress = signal(50);
+  protected readonly progress = signal(0);
   protected readonly files = signal<Set<File>>(new Set());
   protected readonly hasSelectFiles = computed(() => {
     return Array.from(this.files()).length > 0;
@@ -54,32 +55,48 @@ export class UploadFile {
     /**
      * template literal
      */
-    this.#uploadFileService.upload(this.files(), `${environment.BASE_URL}/upload`).subscribe({
-      next: (event: HttpEvent<object>) => {
-        /**
-         * Funciona apenas para upload e download de arquivos
-         */
-        // HttpEventType();
-        // console.log(event);
+    this.#uploadFileService
+      .upload(this.files(), `${environment.BASE_URL}/upload`)
+      .pipe(
+        uploadProgress((progress) => {
+          console.log({
+            progress,
+          });
+          this.progress.set(progress);
+        }),
+        filterResponse(),
+      )
+      .subscribe((res) => {
+        console.log(res);
 
-        // console.log(event.type);
-
-        if (event.type === HttpEventType.Response) {
-          // console.log('Upload concluído');
-        } else if (event.type === HttpEventType.UploadProgress) {
-          const percentDone = Math.round((event.loaded * 100) / event.total!);
-
-          console.log(`Progress: ${percentDone}`);
-
-          this.progress.set(percentDone);
-        }
-      },
-      error: () => {
-        console.error('Error ao tentar fazer o upload');
-      },
-      complete: () => {
         console.log('Upload concluído');
-      },
-    });
+      });
+    // .subscribe({
+    //   next: (event: HttpEvent<object>) => {
+    //     /**
+    //      * Funciona apenas para upload e download de arquivos
+    //      */
+    //     // HttpEventType();
+    //     // console.log(event);
+
+    //     // console.log(event.type);
+
+    //     if (event.type === HttpEventType.Response) {
+    //       // console.log('Upload concluído');
+    //     } else if (event.type === HttpEventType.UploadProgress) {
+    //       const percentDone = Math.round((event.loaded * 100) / (event.total || 100));
+
+    //       console.log(`Progress: ${percentDone}`);
+
+    //       this.progress.set(percentDone);
+    //     }
+    //   },
+    //   error: () => {
+    //     console.error('Error ao tentar fazer o upload');
+    //   },
+    //   complete: () => {
+    //     console.log('Upload concluído');
+    //   },
+    // });
   }
 }

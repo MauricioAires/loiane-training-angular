@@ -45,3 +45,4 @@ Dica: Variável de Ambiente
 - Http: Removendo CORS com Angular Proxy?
   - habilitar proxy do angular para funcionar com qualquer backend.
 - Barra de progresso + observando eventos Http.
+- Http: Criando operador RxJS customizado
