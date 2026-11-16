@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { UploadFileService } from './services/upload-file/upload-file-service';
 import { take } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Component({
   imports: [],
@@ -43,7 +44,11 @@ export class UploadFile {
      * Esse tipo de requisição não pode trabalhar
      * com take 1 porque o CORS faz uma chamada de teste
      */
-    this.#uploadFileService.upload(this.files(), 'http://localhost:8000/upload').subscribe({
+
+    /**
+     * template literal
+     */
+    this.#uploadFileService.upload(this.files(), `${environment.BASE_URL}/upload`).subscribe({
       next: () => {
         console.log('Upload concluído');
       },

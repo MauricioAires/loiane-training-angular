@@ -1,5 +1,5 @@
 const express = require('express');
-const cors = require('cors');
+// const cors = require('cors');
 const bodyParser = require('body-parser');
 const multipart = require('connect-multiparty');
 
@@ -20,12 +20,16 @@ app.use(
  * Mesmo sendo localhost vai ser portas diferente logo domínios diferentes.
  */
 
-const corsOptions = {
-  origin: '*',
-  optionSuccessStatus: 200,
-};
+/**
+ * angular + docker + NGINX
+ */
 
-app.use(cors(corsOptions));
+// const corsOptions = {
+//   origin: '*', // Esse não é o melhor cenários o ideal é liberar apenas para o site específico
+//   optionSuccessStatus: 200,
+// };
+
+// app.use(cors(corsOptions));
 
 /**
  * Salvar o arquivo localmente.
