@@ -47,3 +47,4 @@ Dica: Variável de Ambiente
 - Barra de progresso + observando eventos Http.
 - Http: Criando operador RxJS customizado
 - Http: Criando tela de pesquisa
+- Http: Passando parâmetros na URL (HttpParams)
