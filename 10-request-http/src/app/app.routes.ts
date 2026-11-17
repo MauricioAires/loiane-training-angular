@@ -4,7 +4,7 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'upload',
+    redirectTo: 'busca-reativa',
   },
   {
     path: 'cursos',
@@ -18,6 +18,13 @@ export const routes: Routes = [
   {
     path: 'upload',
     loadComponent: () => import('./features/upload-file/upload-file').then((c) => c.UploadFile),
+  },
+  {
+    path: 'busca-reativa',
+    loadChildren: () =>
+      import('./features/reactive-search/reactive-search.routes').then(
+        (m) => m.REACTIVE_SEARCH_ROUTES,
+      ),
   },
 
   {

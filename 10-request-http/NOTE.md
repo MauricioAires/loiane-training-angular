@@ -46,3 +46,4 @@ Dica: Variável de Ambiente
   - habilitar proxy do angular para funcionar com qualquer backend.
 - Barra de progresso + observando eventos Http.
 - Http: Criando operador RxJS customizado
+- Http: Criando tela de pesquisa
