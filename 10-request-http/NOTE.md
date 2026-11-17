@@ -48,3 +48,4 @@ Dica: Variável de Ambiente
 - Http: Criando operador RxJS customizado
 - Http: Criando tela de pesquisa
 - Http: Passando parâmetros na URL (HttpParams)
+- Http: Pesquisa/Busca com programação reativa.
