@@ -99,4 +99,28 @@ export class UploadFile {
     //   },
     // });
   }
+
+  /**
+   * O Angular não lida por a parte de download de arquivo,
+   * o responsável é o navegador.
+   *
+   * O Código será em JavaScript puro e pode ser que seja
+   * necessário fazer modificações de acordo com o navegador IE, Firefox or Chrome.
+   */
+
+  protected onDownloadExcel(): void {
+    this.#uploadFileService
+      .download(`${environment.BASE_URL}/download-excel`)
+      .subscribe((res: any) => {
+        this.#uploadFileService.handleFile(res, 'report-excel.xlsx');
+      });
+  }
+
+  protected onDownloadPDF(): void {
+    this.#uploadFileService
+      .download(`${environment.BASE_URL}/download-pdf`)
+      .subscribe((res: any) => {
+        this.#uploadFileService.handleFile(res, 'report-pdf.pdf');
+      });
+  }
 }

@@ -49,6 +49,13 @@ app.post('/upload', multipartMiddleware, (req, res) => {
   });
 });
 
+app.get('/download-excel', (req, res) => {
+  res.download('./examples/report.xlsx');
+});
+app.get('/download-pdf', (req, res) => {
+  res.download('./examples/report.pdf');
+});
+
 /**
  * Retornar para o frontend caso ocorra algum erro no backend.
  */
