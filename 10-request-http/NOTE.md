@@ -49,3 +49,7 @@ Dica: Variável de Ambiente
 - Http: Criando tela de pesquisa
 - Http: Passando parâmetros na URL (HttpParams)
 - Http: Pesquisa/Busca com programação reativa.
+- Debug com Visual Studio code
+  - Visual Studio Code
+  - O projeto Angular/Node precisa está sendo executado com npm run dev/server
+  - WebStorm
