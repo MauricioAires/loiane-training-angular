@@ -53,3 +53,8 @@ Dica: Variável de Ambiente
   - Visual Studio Code
   - O projeto Angular/Node precisa está sendo executado com npm run dev/server
   - WebStorm
+- Build de Produção + Suporte ao Internet Explorer
+  - IE foi descontinuado em 15 de Junho de 2022 agora o novo navegador é o Microsoft Edge.
+  - A documentação da CLI foi adiciona apenas depois da versão Angular v7
+- Deploy em produção (Firebase Hosting)
+- Deploy em produção com ng deploy (Firebase)
