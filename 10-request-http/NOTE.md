@@ -58,3 +58,9 @@ Dica: Variável de Ambiente
   - A documentação da CLI foi adiciona apenas depois da versão Angular v7
 - Deploy em produção (Firebase Hosting)
 - Deploy em produção com ng deploy (Firebase)
+- Gerando Imagem Docker com build de produção
+  - [Docker](https://docs.docker.com/)
+  - O docker tem duas fases a primeira é criar o build de produção do Angular e a segunda é gerar a imagem com Nginx com
+    o conteúdo do build do Angular.
+  - [NGINX](https://nginx.org/en/docs/)
+  - RECOMENDAÇÃO DE CURSO DO DAN WAHLIN CURSO DE DOCKER
