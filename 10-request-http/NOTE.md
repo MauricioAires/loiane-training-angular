@@ -63,4 +63,8 @@ Dica: Variável de Ambiente
   - O docker tem duas fases a primeira é criar o build de produção do Angular e a segunda é gerar a imagem com Nginx com
     o conteúdo do build do Angular.
   - [NGINX](https://nginx.org/en/docs/)
-  - RECOMENDAÇÃO DE CURSO DO DAN WAHLIN CURSO DE DOCKER
+  - RECOMENDAÇÃO DE CURSO DO DAN WAHLIN CURSO DE DOCKE
+- Imagem Docker: Deploy Google Cloud (Cloud Run)
+
+
+
