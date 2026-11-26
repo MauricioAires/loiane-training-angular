@@ -65,6 +65,12 @@ Dica: Variável de Ambiente
   - [NGINX](https://nginx.org/en/docs/)
   - RECOMENDAÇÃO DE CURSO DO DAN WAHLIN CURSO DE DOCKE
 - Imagem Docker: Deploy Google Cloud (Cloud Run)
-
-
-
+- Imagem Docker: [Deploy Oracle Cloud](https://www.oracle.com/br/cloud/)
+- Imagem Docker: Deploy Microsoft Azure.
+- Imagem Docker: Deploy Amazon AWS ECS
+- Próximos passos
+  - Testes
+  - Gerenciamento de estado ngrx
+  - Organização de aplicação grande (módulos e submódulos)
+  - Segurança
+- A documentação é a sua melhor amiga!
